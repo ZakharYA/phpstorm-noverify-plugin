@@ -1,4 +1,4 @@
-package org.jetbrains.plugins.template
+package ru.danil42russia.noverify
 
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.psi.xml.XmlFile

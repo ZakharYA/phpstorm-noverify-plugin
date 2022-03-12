@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package ru.danil42russia.noverify.services
 
-import org.jetbrains.plugins.template.MyBundle
+import ru.danil42russia.noverify.MyBundle
 
 class MyApplicationService {
 

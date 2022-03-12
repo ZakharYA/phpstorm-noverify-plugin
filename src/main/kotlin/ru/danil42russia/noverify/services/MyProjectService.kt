@@ -1,7 +1,7 @@
-package org.jetbrains.plugins.template.services
+package ru.danil42russia.noverify.services
 
 import com.intellij.openapi.project.Project
-import org.jetbrains.plugins.template.MyBundle
+import ru.danil42russia.noverify.MyBundle
 
 class MyProjectService(project: Project) {
 

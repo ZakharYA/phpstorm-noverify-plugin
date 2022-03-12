@@ -1,4 +1,4 @@
-package org.jetbrains.plugins.template
+package ru.danil42russia.noverify
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
