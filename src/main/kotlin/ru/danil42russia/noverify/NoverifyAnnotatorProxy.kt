@@ -2,12 +2,10 @@ package ru.danil42russia.noverify
 
 import com.intellij.codeInspection.InspectionProfile
 import com.intellij.openapi.project.Project
-import com.jetbrains.php.tools.quality.QualityToolAnnotator
-import com.jetbrains.php.tools.quality.QualityToolAnnotatorInfo
-import com.jetbrains.php.tools.quality.QualityToolMessageProcessor
-import com.jetbrains.php.tools.quality.QualityToolType
+import com.intellij.psi.PsiFile
+import com.jetbrains.php.tools.quality.*
 
-class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspection>() {
+open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspection>() {
     override fun getQualityToolType(): QualityToolType<NoverifyConfiguration> {
         return NoverifyQualityToolType.INSTANCE
     }
@@ -17,8 +15,31 @@ class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspection
         inspection: NoverifyValidationInspection,
         profile: InspectionProfile?,
         project: Project
-    ): MutableList<String>? {
-        TODO("Not yet implemented")
+    ): List<String> {
+        return emptyList()
+    }
+
+    override fun getOptions(
+        filePath: String?,
+        inspection: NoverifyValidationInspection,
+        profile: InspectionProfile?,
+        project: Project,
+        isOnTheFly: Boolean
+    ): List<String> {
+        return emptyList()
+
+//        getQualityToolType
+    }
+
+    override fun createAnnotatorInfo(
+        file: PsiFile?,
+        tool: NoverifyValidationInspection,
+        inspectionProfile: InspectionProfile,
+        project: Project,
+        configuration: QualityToolConfiguration,
+        isOnTheFly: Boolean
+    ): QualityToolAnnotatorInfo<NoverifyValidationInspection> {
+        return NoverifyQualityToolAnnotatorInfo(file, tool, inspectionProfile, project, configuration, isOnTheFly);
     }
 
     override fun createMessageProcessor(collectedInfo: QualityToolAnnotatorInfo<*>): QualityToolMessageProcessor {

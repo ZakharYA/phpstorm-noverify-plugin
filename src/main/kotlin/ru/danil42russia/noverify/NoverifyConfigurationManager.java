@@ -1,7 +1,6 @@
 package ru.danil42russia.noverify;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
@@ -24,9 +23,13 @@ public class NoverifyConfigurationManager extends QualityToolConfigurationManage
 
     @State(name = "Noverify", storages = {@Storage("php.xml")})
     static class NoverifyProjectConfigurationManager extends NoverifyConfigurationBaseManager {
+        NoverifyProjectConfigurationManager() {
+        }
     }
 
     @State(name = "Noverify", storages = {@Storage(value = "php.xml")})
     static class NoverifyAppConfigurationManager extends NoverifyConfigurationBaseManager {
+        NoverifyAppConfigurationManager() {
+        }
     }
 }

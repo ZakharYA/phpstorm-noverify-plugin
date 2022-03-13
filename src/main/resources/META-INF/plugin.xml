@@ -4,21 +4,41 @@
     <name>Noverify</name>
     <vendor>Danil Ovchinnikov</vendor>
 
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.ultimate</depends>
     <depends>com.jetbrains.php</depends>
+    <depends optional="true" config-file="noverify-remote-interpreter.xml">
+        org.jetbrains.plugins.phpstorm-remote-interpreter
+    </depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService
                 serviceImplementation="ru.danil42russia.noverify.NoverifyConfigurationManager$NoverifyAppConfigurationManager"/>
+        <projectService serviceImplementation="ru.danil42russia.noverify.NoverifyBlackList"/>
+        <projectService serviceImplementation="ru.danil42russia.noverify.NoverifyProjectConfiguration"/>
         <projectService serviceImplementation="ru.danil42russia.noverify.NoverifyConfigurationManager"/>
         <projectService
                 serviceImplementation="ru.danil42russia.noverify.NoverifyConfigurationManager$NoverifyProjectConfigurationManager"/>
-        <projectService serviceImplementation="ru.danil42russia.noverify.NoverifyBlackList"/>
+        
+        <globalInspection language="PHP" shortName="NoverifyGlobal"
+                          groupPath="PHP"
+                          groupName="Quality tools"
+                          enabledByDefault="false"
+                          level="WEAK WARNING"
+                          implementationClass="ru.danil42russia.noverify.NoverifyGlobalInspection"
+                          displayName="Noverify validation"/>
 
         <externalAnnotator language="PHP" implementationClass="ru.danil42russia.noverify.NoverifyAnnotatorProxy"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.jetbrains.php">
+        <tools.projectConfigurableForm instance="ru.danil42russia.noverify.NoverifyConfigurable"/>
         <tools.quality.type implementation="ru.danil42russia.noverify.NoverifyQualityToolType"/>
+<!--        <composerConfigClient implementation="ru.danil42russia.noverify.NoverifyComposerConfig"/>-->
+        <openSettingsProvider implementation="ru.danil42russia.noverify.NoverifyOpenSettingsProvider"/>
     </extensions>
+
+    <extensionPoints>
+        <extensionPoint interface="ru.danil42russia.noverify.NoverifyConfigurationProvider"
+                        name="noverifyConfigurationProvider"/>
+    </extensionPoints>
 </idea-plugin>

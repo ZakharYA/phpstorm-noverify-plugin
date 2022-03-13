@@ -22,26 +22,26 @@ class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
     }
 
     override fun getConfigurationProvider(): QualityToolConfigurationProvider<NoverifyConfiguration>? {
-        TODO("Not yet implemented")
+        return NoverifyConfigurationProvider.getInstances()
     }
 
     override fun createConfigurableForm(
         project: Project,
         settings: NoverifyConfiguration?
     ): QualityToolConfigurableForm<NoverifyConfiguration> {
-        TODO("Not yet implemented")
+        return NoverifyConfigurableForm(project, settings)
     }
 
     override fun getToolConfigurable(project: Project): Configurable {
-        TODO("Not yet implemented")
+        return NoverifyConfigurable(project)
     }
 
     override fun getProjectConfiguration(project: Project): QualityToolProjectConfiguration<NoverifyConfiguration> {
-        TODO("Not yet implemented")
+        return NoverifyProjectConfiguration.getInstance(project)
     }
 
     override fun createConfiguration(): NoverifyConfiguration {
-        TODO("Not yet implemented")
+        return NoverifyConfiguration()
     }
 
     companion object {

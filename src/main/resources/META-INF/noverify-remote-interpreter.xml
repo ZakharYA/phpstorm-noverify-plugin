@@ -1,0 +1,5 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="ru.danil42russia.noverify">
+        <noverifyConfigurationProvider implementation="ru.danil42russia.noverify.NoverifyRemoteConfigurationProvider"/>
+    </extensions>
+</idea-plugin>
