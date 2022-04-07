@@ -33,7 +33,7 @@
     <extensions defaultExtensionNs="com.jetbrains.php">
         <tools.projectConfigurableForm instance="ru.danil42russia.noverify.NoverifyConfigurable"/>
         <tools.quality.type implementation="ru.danil42russia.noverify.NoverifyQualityToolType"/>
-<!--        <composerConfigClient implementation="ru.danil42russia.noverify.NoverifyComposerConfig"/>-->
+        <composerConfigClient implementation="ru.danil42russia.noverify.NoverifyComposerConfig"/>
         <openSettingsProvider implementation="ru.danil42russia.noverify.NoverifyOpenSettingsProvider"/>
     </extensions>
 

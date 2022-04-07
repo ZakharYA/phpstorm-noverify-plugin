@@ -9,7 +9,6 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import com.jetbrains.php.tools.quality.QualityToolProjectConfiguration
 import com.jetbrains.php.tools.quality.QualityToolType
 
-
 @State(name = "NoverifyProjectConfiguration", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class NoverifyProjectConfiguration : QualityToolProjectConfiguration<NoverifyConfiguration>(),
     PersistentStateComponent<NoverifyProjectConfiguration> {

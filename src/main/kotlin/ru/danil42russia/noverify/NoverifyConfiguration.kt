@@ -7,7 +7,6 @@ import com.intellij.util.xmlb.annotations.Transient
 import com.intellij.openapi.util.text.StringUtil
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
 
-
 class NoverifyConfiguration : QualityToolConfiguration {
     private var myNoverifyPath = ""
     private var myTimeoutMs = 30000

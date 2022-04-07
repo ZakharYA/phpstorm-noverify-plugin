@@ -6,7 +6,6 @@ import com.jetbrains.php.tools.quality.QualityToolConfigurableList
 import com.jetbrains.php.tools.quality.QualityToolType
 import com.jetbrains.php.ui.PhpUiUtil
 
-
 class NoverifyOpenSettingsProvider : ComposerLogMessageBuilder.Settings("\u200C") {
     override fun show(project: Project) {
         PhpUiUtil.editConfigurable(

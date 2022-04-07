@@ -3,10 +3,11 @@ package ru.danil42russia.noverify
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
 import com.jetbrains.php.tools.quality.*
+import ru.danil42russia.noverify.NoverifyConfigurationBaseManager.Companion.NOVERIFY
 
 class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
     override fun getDisplayName(): String {
-        return "Noverify"
+        return NOVERIFY
     }
 
     override fun getQualityToolBlackList(project: Project): QualityToolBlackList {
@@ -27,7 +28,7 @@ class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
 
     override fun createConfigurableForm(
         project: Project,
-        settings: NoverifyConfiguration?
+        settings: NoverifyConfiguration
     ): QualityToolConfigurableForm<NoverifyConfiguration> {
         return NoverifyConfigurableForm(project, settings)
     }

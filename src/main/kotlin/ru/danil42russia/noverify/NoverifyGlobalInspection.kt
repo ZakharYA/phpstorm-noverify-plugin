@@ -6,15 +6,18 @@ import com.jetbrains.php.tools.quality.QualityToolAnnotator
 import com.jetbrains.php.tools.quality.QualityToolValidationGlobalInspection
 import com.jetbrains.php.tools.quality.QualityToolXmlMessageProcessor.ProblemDescription
 
-
 class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(),
     ExternalAnnotatorBatchInspection {
     override fun getAnnotator(): QualityToolAnnotator<NoverifyValidationInspection> {
-        return NoverifyAnnotatorProxy.INSTANCE;
+        return NoverifyAnnotatorProxy.INSTANCE
     }
 
     override fun getKey(): Key<List<ProblemDescription>> {
         return NOVERIFY_ANNOTATOR_INFO
+    }
+
+    fun getCommandLineOptions(): List<String> {
+        return emptyList()
     }
 
     companion object {

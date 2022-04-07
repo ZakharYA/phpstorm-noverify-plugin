@@ -6,10 +6,6 @@ import com.intellij.psi.PsiFile
 import com.jetbrains.php.tools.quality.*
 
 open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspection>() {
-    override fun getQualityToolType(): QualityToolType<NoverifyConfiguration> {
-        return NoverifyQualityToolType.INSTANCE
-    }
-
     override fun getOptions(
         filePath: String?,
         inspection: NoverifyValidationInspection,
@@ -26,9 +22,9 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
         project: Project,
         isOnTheFly: Boolean
     ): List<String> {
-        return emptyList()
+        val tool = qualityToolType.getGlobalTool(project, profile) as? NoverifyGlobalInspection ?: return emptyList()
 
-//        getQualityToolType
+        return tool.getCommandLineOptions()
     }
 
     override fun createAnnotatorInfo(
@@ -39,7 +35,11 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
         configuration: QualityToolConfiguration,
         isOnTheFly: Boolean
     ): QualityToolAnnotatorInfo<NoverifyValidationInspection> {
-        return NoverifyQualityToolAnnotatorInfo(file, tool, inspectionProfile, project, configuration, isOnTheFly);
+        return NoverifyQualityToolAnnotatorInfo(file, tool, inspectionProfile, project, configuration, isOnTheFly)
+    }
+
+    override fun getQualityToolType(): QualityToolType<NoverifyConfiguration> {
+        return NoverifyQualityToolType.INSTANCE
     }
 
     override fun createMessageProcessor(collectedInfo: QualityToolAnnotatorInfo<*>): QualityToolMessageProcessor {

@@ -7,8 +7,9 @@ import com.jetbrains.php.tools.quality.QualityToolConfigurationManager
 import com.jetbrains.php.tools.quality.QualityToolsComposerConfig
 import org.jetbrains.annotations.NonNls
 
-class NoverifyComposerConfig :
+class NoverifyComposerConfig() :
     QualityToolsComposerConfig<NoverifyConfiguration, NoverifyValidationInspection>(PACKAGE, RELATIVE_PATH) {
+
     override fun getQualityToolsInspectionSettings(): ComposerLogMessageBuilder.Settings? {
         return null
     }
@@ -22,7 +23,7 @@ class NoverifyComposerConfig :
     }
 
     companion object {
-        private val PACKAGE: @NonNls String = "vkcom/noverify"
-        private val RELATIVE_PATH: @NonNls String = "bin/noverify" + if (SystemInfo.isWindows) ".bat" else ""
+        private const val PACKAGE: @NonNls String = "vkcom/noverify"
+        private val RELATIVE_PATH: @NonNls String = "bin/noverify" + if (SystemInfo.isWindows) ".exe" else ""
     }
 }
