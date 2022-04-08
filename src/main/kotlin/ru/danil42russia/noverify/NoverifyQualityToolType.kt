@@ -49,6 +49,10 @@ class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
         return "NoverifyGlobal"
     }
 
+    override fun getHelpTopic(): String {
+        return  "reference.settings.php.NoVerify"
+    }
+
     companion object {
         val INSTANCE = NoverifyQualityToolType()
     }

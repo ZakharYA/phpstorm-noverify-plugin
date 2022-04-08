@@ -6,6 +6,7 @@ import com.jetbrains.php.composer.actions.log.ComposerLogMessageBuilder
 import com.jetbrains.php.tools.quality.QualityToolConfigurationManager
 import com.jetbrains.php.tools.quality.QualityToolsComposerConfig
 import org.jetbrains.annotations.NonNls
+import ru.danil42russia.noverify.NoverifyOpenSettingsProvider.Companion.NOVERIFY_OPEN_SETTINGS_PROVIDER
 
 class NoverifyComposerConfig :
     QualityToolsComposerConfig<NoverifyConfiguration, NoverifyValidationInspection>(PACKAGE, RELATIVE_PATH) {
@@ -19,6 +20,10 @@ class NoverifyComposerConfig :
 
     override fun getConfigurationManager(project: Project): QualityToolConfigurationManager<NoverifyConfiguration> {
         return NoverifyConfigurationManager.getInstance(project)
+    }
+
+    override fun getSettings(): ComposerLogMessageBuilder.Settings {
+        return NOVERIFY_OPEN_SETTINGS_PROVIDER
     }
 
     companion object {

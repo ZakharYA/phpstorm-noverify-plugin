@@ -6,7 +6,7 @@ import com.intellij.util.xmlb.annotations.Attribute
 import com.intellij.util.xmlb.annotations.Transient
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
 
-class NoverifyConfiguration : QualityToolConfiguration {
+open class NoverifyConfiguration : QualityToolConfiguration {
     private var myNoverifyPath = ""
     private var myTimeoutMs = 30000
     private var myMaxMessagesPerFile = 100
@@ -61,7 +61,13 @@ class NoverifyConfiguration : QualityToolConfiguration {
     }
 
     override fun clone(): QualityToolConfiguration {
-        return NoverifyConfiguration().also {
+        val settings = NoverifyConfiguration()
+        clone(settings)
+        return settings
+    }
+
+    fun clone(settings: NoverifyConfiguration) {
+        return settings.let {
             it.myNoverifyPath = myNoverifyPath
             it.myMaxMessagesPerFile = myMaxMessagesPerFile
             it.myTimeoutMs = myTimeoutMs

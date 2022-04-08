@@ -24,7 +24,7 @@ open class NoverifyConfigurationBaseManager : QualityToolConfigurationBaseManage
     }
 
     companion object {
-        const val NOVERIFY: @NlsSafe String = "Noverify"
+        const val NOVERIFY: @NlsSafe String = "NoVerify"
         const val NOVERIFY_PATH: @NlsSafe String = "NoverifyPath"
         const val NOVERIFY_ROOT_NAME: @NlsSafe String = "Noverify_settings"
     }

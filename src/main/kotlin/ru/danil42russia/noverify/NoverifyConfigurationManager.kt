@@ -16,10 +16,10 @@ class NoverifyConfigurationManager(project: Project?) :
             ApplicationManager.getApplication().getService(NoverifyAppConfigurationManager::class.java)
     }
 
-    @State(name = "Noverify", storages = [Storage("php.xml")])
+    @State(name = "NoVerify", storages = [Storage("php.xml")])
     internal class NoverifyProjectConfigurationManager : NoverifyConfigurationBaseManager()
 
-    @State(name = "Noverify", storages = [Storage("php.xml")])
+    @State(name = "NoVerify", storages = [Storage("php.xml")])
     internal class NoverifyAppConfigurationManager : NoverifyConfigurationBaseManager()
 
     companion object {

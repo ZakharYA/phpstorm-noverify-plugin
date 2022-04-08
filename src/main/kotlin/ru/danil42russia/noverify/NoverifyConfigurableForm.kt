@@ -14,9 +14,19 @@ class NoverifyConfigurableForm(project: Project, configuration: NoverifyConfigur
         return NoverifyQualityToolType.INSTANCE as QualityToolType<QualityToolConfiguration>
     }
 
+    override fun getHelpTopic(): String {
+        return "reference.settings.php.NoVerify"
+    }
+
     override fun validateMessage(message: String): Pair<Boolean, String> {
-        return if (message.contains(NOVERIFY)) {
-            Pair.create(true, "OK, $message")
+        // FIXME: Поправить когда сделают переопределение аргументов
+
+        // На самом деле проверка фигня
+        // всё из-за того, что в функции validateConfiguration захардкожены параметры получения версии линтера
+        // 300iq :^)
+        val informationTest = "NoVerify - Pretty fast linter (static analysis tool) for PHP"
+        return if (message.startsWith(informationTest)) {
+            Pair.create(true, "OK, $informationTest")
         } else {
             Pair.create(false, message)
         }

@@ -5,6 +5,7 @@ import com.intellij.openapi.util.Key
 import com.jetbrains.php.tools.quality.QualityToolAnnotator
 import com.jetbrains.php.tools.quality.QualityToolValidationGlobalInspection
 import com.jetbrains.php.tools.quality.QualityToolXmlMessageProcessor.ProblemDescription
+import javax.swing.JComponent
 
 class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), ExternalAnnotatorBatchInspection {
     override fun getAnnotator(): QualityToolAnnotator<NoverifyValidationInspection> {
@@ -13,6 +14,13 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
 
     override fun getKey(): Key<List<ProblemDescription>> {
         return NOVERIFY_ANNOTATOR_INFO
+    }
+
+    // TODO: А точно надо?
+    override fun createOptionsPanel(): JComponent? {
+        val optionsPanel = NoverifyOptionsPanel(this)
+
+        return optionsPanel.optionsPanel
     }
 
     fun getCommandLineOptions(): List<String> {
