@@ -7,9 +7,8 @@ import com.jetbrains.php.tools.quality.QualityToolConfigurationManager
 import com.jetbrains.php.tools.quality.QualityToolsComposerConfig
 import org.jetbrains.annotations.NonNls
 
-class NoverifyComposerConfig() :
+class NoverifyComposerConfig :
     QualityToolsComposerConfig<NoverifyConfiguration, NoverifyValidationInspection>(PACKAGE, RELATIVE_PATH) {
-
     override fun getQualityToolsInspectionSettings(): ComposerLogMessageBuilder.Settings? {
         return null
     }

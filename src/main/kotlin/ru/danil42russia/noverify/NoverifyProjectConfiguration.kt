@@ -12,7 +12,6 @@ import com.jetbrains.php.tools.quality.QualityToolType
 @State(name = "NoverifyProjectConfiguration", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class NoverifyProjectConfiguration : QualityToolProjectConfiguration<NoverifyConfiguration>(),
     PersistentStateComponent<NoverifyProjectConfiguration> {
-
     override fun getState(): NoverifyProjectConfiguration {
         return this
     }

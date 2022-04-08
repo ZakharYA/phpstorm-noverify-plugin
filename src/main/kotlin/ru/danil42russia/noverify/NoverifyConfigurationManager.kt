@@ -8,7 +8,6 @@ import com.jetbrains.php.tools.quality.QualityToolConfigurationManager
 
 class NoverifyConfigurationManager(project: Project?) :
     QualityToolConfigurationManager<NoverifyConfiguration>(project) {
-
     init {
         if (project != null) {
             myProjectManager = project.getService(NoverifyProjectConfigurationManager::class.java)

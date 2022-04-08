@@ -1,10 +1,9 @@
 package ru.danil42russia.noverify
 
 import com.intellij.openapi.project.Project
-
+import com.intellij.openapi.util.text.StringUtil
 import com.intellij.util.xmlb.annotations.Attribute
 import com.intellij.util.xmlb.annotations.Transient
-import com.intellij.openapi.util.text.StringUtil
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
 
 class NoverifyConfiguration : QualityToolConfiguration {
@@ -13,12 +12,15 @@ class NoverifyConfiguration : QualityToolConfiguration {
     private var myMaxMessagesPerFile = 100
 
     override fun compareTo(other: QualityToolConfiguration?): Int {
-        if (other !is NoverifyConfiguration)
+        if (other !is NoverifyConfiguration) {
             return 1
-        if (this.getPresentableName(null) == "Local")
+        }
+        if (this.getPresentableName(null) == "Local") {
             return -1
-        if (other.getPresentableName(null) == "Local")
+        }
+        if (other.getPresentableName(null) == "Local") {
             return 1
+        }
 
         return StringUtil.compare(getPresentableName(null), other.getPresentableName(null), false)
     }

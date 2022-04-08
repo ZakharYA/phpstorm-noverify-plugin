@@ -16,8 +16,9 @@ open class NoverifyConfigurationBaseManager : QualityToolConfigurationBaseManage
     override fun getConfigurationRootName() = NOVERIFY_ROOT_NAME
 
     override fun loadLocal(element: Element?): NoverifyConfiguration? {
-        if (element == null)
+        if (element == null) {
             return null
+        }
 
         return XmlSerializer.deserialize(element, NoverifyConfiguration::class.java)
     }
