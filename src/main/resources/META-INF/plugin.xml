@@ -19,13 +19,13 @@
         <projectService
                 serviceImplementation="ru.danil42russia.noverify.NoverifyConfigurationManager$NoverifyProjectConfigurationManager"/>
         
-        <globalInspection language="PHP" shortName="NoverifyGlobal"
+        <globalInspection language="PHP" shortName="NoVerifyGlobal"
                           groupPath="PHP"
                           groupName="Quality tools"
                           enabledByDefault="false"
                           level="WEAK WARNING"
                           implementationClass="ru.danil42russia.noverify.NoverifyGlobalInspection"
-                          displayName="Noverify validation"/>
+                          displayName="NoVerify validation"/>
 
         <externalAnnotator language="PHP" implementationClass="ru.danil42russia.noverify.NoverifyAnnotatorProxy"/>
     </extensions>

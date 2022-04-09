@@ -1,10 +1,12 @@
 package ru.danil42russia.noverify
 
-import ru.danil42russia.noverify.NoverifyConfigurationBaseManager.Companion.NOVERIFY
-
+import com.intellij.codeInspection.InspectionProfile
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
+import com.intellij.profile.codeInspection.InspectionProjectProfileManager
+import com.intellij.util.ObjectUtils.tryCast
 import com.jetbrains.php.tools.quality.*
+import ru.danil42russia.noverify.NoverifyConfigurationBaseManager.Companion.NOVERIFY
 
 class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
     override fun getDisplayName(): String {
@@ -46,11 +48,28 @@ class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
     }
 
     override fun getInspectionId(): String {
-        return "NoverifyGlobal"
+        return "NoVerifyGlobal"
     }
 
     override fun getHelpTopic(): String {
-        return  "reference.settings.php.NoVerify"
+        return "reference.settings.php.NoVerify"
+    }
+
+    override fun getGlobalTool(project: Project, profile: InspectionProfile?): QualityToolValidationGlobalInspection? {
+        var newProfile = profile
+        if (newProfile == null) {
+            newProfile = InspectionProjectProfileManager.getInstance(project).currentProfile
+        }
+
+        val inspectionTool = newProfile.getInspectionTool(inspectionId, project) ?: return null
+
+        return tryCast(inspectionTool.tool, NoverifyGlobalInspection::class.java)
+    }
+
+    override fun getInspectionShortName(project: Project): String {
+        val tool = getGlobalTool(project, null)
+
+        return tool?.shortName ?: inspection.shortName
     }
 
     companion object {

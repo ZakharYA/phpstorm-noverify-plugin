@@ -13,7 +13,7 @@ abstract class NoverifyConfigurationProvider : QualityToolConfigurationProvider<
         fun getInstances(): NoverifyConfigurationProvider? {
             val extensions: Array<NoverifyConfigurationProvider> = EP_NAME.extensions
             if (extensions.size > 1) {
-                LOG.error("Several providers for remote Noverify configuration was found")
+                LOG.error("Several providers for remote NoVerify configuration was found")
             }
             return if (extensions.isEmpty()) null else extensions[0]
         }

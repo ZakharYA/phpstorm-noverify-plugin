@@ -1,5 +1,6 @@
 package ru.danil42russia.noverify
 
+import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ex.ExternalAnnotatorBatchInspection
 import com.intellij.openapi.util.Key
 import com.jetbrains.php.tools.quality.QualityToolAnnotator
@@ -16,15 +17,32 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         return NOVERIFY_ANNOTATOR_INFO
     }
 
-    // TODO: А точно надо?
+    // TODO: А точно надо? Возможно пригодиться в будущем
     override fun createOptionsPanel(): JComponent? {
         val optionsPanel = NoverifyOptionsPanel(this)
 
         return optionsPanel.optionsPanel
     }
 
-    fun getCommandLineOptions(): List<String> {
-        return emptyList()
+    override fun getSharedLocalInspectionTool(): LocalInspectionTool {
+        return NoverifyValidationInspection()
+    }
+
+    // TODO: Переделать
+    fun getCommandLineOptions(projectPath: String?): List<String> {
+        val options = ArrayList<String>()
+        options.add("check")
+
+        options.add("--output-json")
+        options.add("--output=D:\\kek.json")
+        options.add("--stubs-dir=D:\\Libs\\phpstorm-stubs")
+        options.add("--exclude=\"vendor|tests\"")
+
+        if (projectPath != null) {
+            options.add(projectPath)
+        }
+
+        return options
     }
 
     companion object {

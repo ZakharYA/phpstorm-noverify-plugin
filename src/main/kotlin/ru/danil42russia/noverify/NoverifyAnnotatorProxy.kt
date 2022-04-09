@@ -12,19 +12,9 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
         profile: InspectionProfile?,
         project: Project
     ): List<String> {
-        return emptyList()
-    }
-
-    override fun getOptions(
-        filePath: String?,
-        inspection: NoverifyValidationInspection,
-        profile: InspectionProfile?,
-        project: Project,
-        isOnTheFly: Boolean
-    ): List<String> {
         val tool = qualityToolType.getGlobalTool(project, profile) as? NoverifyGlobalInspection ?: return emptyList()
 
-        return tool.getCommandLineOptions()
+        return tool.getCommandLineOptions(project.basePath)
     }
 
     override fun createAnnotatorInfo(
@@ -44,6 +34,10 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
 
     override fun createMessageProcessor(collectedInfo: QualityToolAnnotatorInfo<*>): QualityToolMessageProcessor {
         return NoverifyMessageProcessor(collectedInfo)
+    }
+
+    override fun getPairedBatchInspectionShortName(): String {
+        return qualityToolType.inspectionId
     }
 
     companion object {
