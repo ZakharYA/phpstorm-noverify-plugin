@@ -31,13 +31,13 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
         mySAXParser.parse(source, messageHandler)
 
         val psiFile = info.psiFile
-        val document = PsiDocumentManager.getInstance(psiFile.project).getDocument(psiFile)!!
+        val document = PsiDocumentManager.getInstance(psiFile.project).getDocument(psiFile) ?: return
 
         for (problem in messageHandler.problemList) {
             val startLine = document.getLineStartOffset(problem.lineNumber - 1)
-            val tr = TextRange.create(startLine + problem.startChar, startLine + problem.endChar)
+            val textRange = TextRange.create(startLine + problem.startChar, startLine + problem.endChar)
 
-            val message = QualityToolMessage(this, tr, problem.severity, problem.message)
+            val message = QualityToolMessage(this, textRange, problem.severity, problem.message)
             addMessage(message)
         }
     }

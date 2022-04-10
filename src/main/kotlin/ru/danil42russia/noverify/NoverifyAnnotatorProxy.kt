@@ -14,7 +14,16 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
     ): List<String> {
         val tool = qualityToolType.getGlobalTool(project, profile) as? NoverifyGlobalInspection ?: return emptyList()
 
-        return tool.getCommandLineOptions(project.basePath)
+        val projectPath = project.basePath ?: return emptyList()
+        if (filePath == null) {
+            return emptyList()
+        }
+
+        return tool.getCommandLineOptions(projectPath, filePath)
+    }
+
+    override fun getTemporaryFilesFolder(): String {
+        return TEMP_FOLDER
     }
 
     override fun createAnnotatorInfo(
@@ -42,5 +51,6 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
 
     companion object {
         val INSTANCE = NoverifyAnnotatorProxy()
+        const val TEMP_FOLDER = "noverify_temp_folder"
     }
 }
