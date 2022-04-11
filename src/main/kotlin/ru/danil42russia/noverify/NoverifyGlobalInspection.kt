@@ -2,11 +2,11 @@ package ru.danil42russia.noverify
 
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ex.ExternalAnnotatorBatchInspection
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.util.Key
 import com.jetbrains.php.tools.quality.QualityToolAnnotator
 import com.jetbrains.php.tools.quality.QualityToolValidationGlobalInspection
 import com.jetbrains.php.tools.quality.QualityToolXmlMessageProcessor.ProblemDescription
-import javax.swing.JComponent
 
 class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), ExternalAnnotatorBatchInspection {
     override fun getAnnotator(): QualityToolAnnotator<NoverifyValidationInspection> {
@@ -17,13 +17,6 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         return NOVERIFY_ANNOTATOR_INFO
     }
 
-    // TODO: А точно надо? Возможно пригодиться в будущем
-    override fun createOptionsPanel(): JComponent? {
-        val optionsPanel = NoverifyOptionsPanel(this)
-
-        return optionsPanel.optionsPanel
-    }
-
     override fun getSharedLocalInspectionTool(): LocalInspectionTool {
         return NoverifyValidationInspection()
     }
@@ -31,8 +24,9 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
     // TODO: Переделать
     // Путь до stubs
     // Путь до кэша
-    // KPHP флаг
-    fun getCommandLineOptions(projectPath: String, filePath: String): List<String> {
+    // Регулярка для игнора путей
+    // KPHP флаг (Готово)
+    fun getCommandLineOptions(projectPath: String, filePath: String, useKphp: Boolean): List<String> {
         val options = ArrayList<String>()
         options.add("check")
 
@@ -41,12 +35,20 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         options.add("--full-analysis-files=$filePath")
         options.add("--exclude=\"vendor|tests\"")
 
+        if (useKphp) {
+            options.add("--kphp")
+        }
+
         options.add(projectPath)
 
+        LOG.info(options.joinToString(separator = " "))
         return options
     }
 
     companion object {
         private val NOVERIFY_ANNOTATOR_INFO = Key.create<List<ProblemDescription>>("ANNOTATOR_INFO_NOVERIFY")
+
+
+        private val LOG: Logger = Logger.getInstance(NoverifyConfigurationProvider::class.java)
     }
 }

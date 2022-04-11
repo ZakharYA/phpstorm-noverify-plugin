@@ -6,12 +6,20 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Pair
 import com.jetbrains.php.tools.quality.QualityToolConfigurableForm
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
+import com.jetbrains.php.tools.quality.QualityToolCustomSettings
 import com.jetbrains.php.tools.quality.QualityToolType
 
 class NoverifyConfigurableForm(project: Project, configuration: NoverifyConfiguration) :
     QualityToolConfigurableForm<NoverifyConfiguration>(project, configuration, NOVERIFY, "noverify") {
     override fun getQualityToolType(): QualityToolType<QualityToolConfiguration> {
         return NoverifyQualityToolType.INSTANCE as QualityToolType<QualityToolConfiguration>
+    }
+
+    override fun getCustomConfigurable(
+        project: Project,
+        configuration: NoverifyConfiguration
+    ): QualityToolCustomSettings {
+        return NoverifyCustomOptionsForm(project, configuration)
     }
 
     override fun getHelpTopic(): String {

@@ -11,6 +11,10 @@ open class NoverifyConfiguration : QualityToolConfiguration {
     private var myTimeoutMs = 30000
     private var myMaxMessagesPerFile = 100
 
+    var myUseKphp = false
+        @Attribute("useKphp")
+        get
+
     override fun compareTo(other: QualityToolConfiguration?): Int {
         if (other !is NoverifyConfiguration) {
             return 1
@@ -55,6 +59,18 @@ open class NoverifyConfiguration : QualityToolConfiguration {
         myNoverifyPath = toolPath
     }
 
+    // Сначала можно не понять, откуда берётся суффикс, а он появляется при serialize/deserialize пути (только для Windows)
+    @Attribute("tool_path")
+    fun getSerializedToolPath(): String {
+        return serialize(myNoverifyPath).removeSuffix(".bat")
+    }
+
+    fun setSerializedToolPath(configurationFilePath: String?) {
+        val deserializePath = deserialize(configurationFilePath).removeSuffix(".bat")
+
+        myNoverifyPath = deserializePath
+    }
+
     @Attribute("max_messages_per_file")
     override fun getMaxMessagesPerFile(): Int {
         return myMaxMessagesPerFile
@@ -71,6 +87,7 @@ open class NoverifyConfiguration : QualityToolConfiguration {
             it.myNoverifyPath = myNoverifyPath
             it.myMaxMessagesPerFile = myMaxMessagesPerFile
             it.myTimeoutMs = myTimeoutMs
+            it.myUseKphp = myUseKphp
         }
     }
 }

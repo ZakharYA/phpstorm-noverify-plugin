@@ -30,7 +30,7 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
         val messageHandler = xmlMessageHandler as NoverifyXmlMessageHandler
         mySAXParser.parse(source, messageHandler)
 
-        val psiFile = info.psiFile
+        val psiFile = info.psiFile ?: return
         val document = PsiDocumentManager.getInstance(psiFile.project).getDocument(psiFile) ?: return
 
         for (problem in messageHandler.problemList) {
@@ -63,9 +63,10 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
             val filePath = PathUtil.toSystemIndependentName(attributes.getValue("filename"))
             val startChar = parseCharNumber(attributes.getValue("start_char"))
             val endChar = parseCharNumber(attributes.getValue("end_char"))
+            val severity = levelToSeverity(attributes.getValue("level"))
 
             val problem = NoverifyProblemDescription(
-                QualityToolMessage.Severity.ERROR,
+                severity,
                 myLineNumber,
                 startChar,
                 endChar,
@@ -88,6 +89,20 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
             }
 
             return -1
+        }
+
+        /**
+         * @see https://github.com/VKCOM/noverify/blob/master/src/linter/report.go#L1153
+         * @see https://github.com/VKCOM/noverify/blob/master/src/linter/lintapi/lintapi.go
+         */
+        fun levelToSeverity(level: String?): QualityToolMessage.Severity? {
+            return when (level) {
+                "1" -> QualityToolMessage.Severity.ERROR
+                "2" -> QualityToolMessage.Severity.WARNING
+                "3" -> null // TODO: Подумать
+                "4" -> QualityToolMessage.Severity.WARNING
+                else -> null
+            }
         }
     }
 

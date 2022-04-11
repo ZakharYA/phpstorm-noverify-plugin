@@ -19,7 +19,9 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
             return emptyList()
         }
 
-        return tool.getCommandLineOptions(projectPath, filePath)
+        val config = getConfiguration(project, inspection) as? NoverifyConfiguration ?: return emptyList()
+
+        return tool.getCommandLineOptions(projectPath, filePath, config.myUseKphp)
     }
 
     override fun getTemporaryFilesFolder(): String {
@@ -51,6 +53,8 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
 
     companion object {
         val INSTANCE = NoverifyAnnotatorProxy()
+
+        // Точно надо?
         const val TEMP_FOLDER = "noverify_temp_folder"
     }
 }
