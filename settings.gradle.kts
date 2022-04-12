@@ -1,1 +1,1 @@
-rootProject.name = "NoVerify"
+rootProject.name = "phpstorm-noverify-plugin"
