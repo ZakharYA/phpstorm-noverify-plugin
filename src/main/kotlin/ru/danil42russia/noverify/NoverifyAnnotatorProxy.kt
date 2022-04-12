@@ -12,13 +12,12 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
         profile: InspectionProfile?,
         project: Project
     ): List<String> {
-        val tool = qualityToolType.getGlobalTool(project, profile) as? NoverifyGlobalInspection ?: return emptyList()
-
-        val projectPath = project.basePath ?: return emptyList()
         if (filePath == null) {
             return emptyList()
         }
 
+        val tool = qualityToolType.getGlobalTool(project, profile) as? NoverifyGlobalInspection ?: return emptyList()
+        val projectPath = project.basePath ?: return emptyList()
         val config = getConfiguration(project, inspection) as? NoverifyConfiguration ?: return emptyList()
 
         return tool.getCommandLineOptions(projectPath, filePath, config.myUseKphp)

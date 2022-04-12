@@ -27,13 +27,13 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
     // Регулярка для игнора путей
     // KPHP флаг (Готово)
     fun getCommandLineOptions(projectPath: String, filePath: String, useKphp: Boolean): List<String> {
-        val options = ArrayList<String>()
+        val options: MutableList<String> = ArrayList()
         options.add("check")
 
         options.add("--output-json")
-        options.add("--stubs-dir=D:\\Libs\\phpstorm-stubs")
+        options.add("--stubs-dir=D:\\Libs\\phpstorm-stubs") // TODO: Вынести
         options.add("--full-analysis-files=$filePath")
-        options.add("--exclude=\"vendor|tests\"")
+        options.add("--exclude=\"vendor|tests\"") // TODO: Вынести
 
         if (useKphp) {
             options.add("--kphp")
@@ -46,8 +46,7 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
     }
 
     companion object {
-        private val NOVERIFY_ANNOTATOR_INFO = Key.create<List<ProblemDescription>>("ANNOTATOR_INFO_NOVERIFY")
-
+        private val NOVERIFY_ANNOTATOR_INFO: Key<List<ProblemDescription>> = Key.create("ANNOTATOR_INFO_NOVERIFY")
 
         private val LOG: Logger = Logger.getInstance(NoverifyConfigurationProvider::class.java)
     }

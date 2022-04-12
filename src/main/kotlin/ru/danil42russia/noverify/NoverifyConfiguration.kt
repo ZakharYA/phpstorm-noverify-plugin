@@ -59,7 +59,8 @@ open class NoverifyConfiguration : QualityToolConfiguration {
         myNoverifyPath = toolPath
     }
 
-    // Сначала можно не понять, откуда берётся суффикс, а он появляется при serialize/deserialize пути (только для Windows)
+    // Сначала можно не понять, откуда берётся суффикс, а он появляется при serialize/deserialize пути
+    // Только для Windows
     @Attribute("tool_path")
     fun getSerializedToolPath(): String {
         return serialize(myNoverifyPath).removeSuffix(".bat")

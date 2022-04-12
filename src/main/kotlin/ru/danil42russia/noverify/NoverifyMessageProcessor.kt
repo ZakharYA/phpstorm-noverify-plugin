@@ -51,7 +51,7 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
     }
 
     private class NoverifyXmlMessageHandler : XMLMessageHandler() {
-        val problemList = mutableListOf<NoverifyProblemDescription>()
+        val problemList: MutableList<NoverifyProblemDescription> = mutableListOf()
 
         override fun parseTag(tagName: String, attributes: Attributes) {
             if (tagName != "report") {

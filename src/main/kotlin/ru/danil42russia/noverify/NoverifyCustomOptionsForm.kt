@@ -7,7 +7,7 @@ import com.jetbrains.php.tools.quality.QualityToolCustomSettings
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class NoverifyCustomOptionsForm(project: Project, val configuration: NoverifyConfiguration) :
+class NoverifyCustomOptionsForm(project: Project, private val configuration: NoverifyConfiguration) :
     QualityToolCustomSettings() {
     private var myTopPanel: JPanel? = null
     private var myUseKphpCheckBox: JBCheckBox? = null
