@@ -3,14 +3,12 @@ package ru.danil42russia.noverify
 import com.intellij.codeInspection.InspectionProfile
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
+import com.jetbrains.php.config.PhpRuntimeConfiguration
 import com.jetbrains.php.tools.quality.*
 
 open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspection>() {
     override fun getOptions(
-        filePath: String?,
-        inspection: NoverifyValidationInspection,
-        profile: InspectionProfile?,
-        project: Project
+        filePath: String?, inspection: NoverifyValidationInspection, profile: InspectionProfile?, project: Project
     ): List<String> {
         if (filePath == null) {
             return emptyList()
@@ -20,7 +18,17 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
         val projectPath = project.basePath ?: return emptyList()
         val config = getConfiguration(project, inspection) as? NoverifyConfiguration ?: return emptyList()
 
-        return tool.getCommandLineOptions(projectPath, filePath, config.myUseKphp)
+        val phpConfig = PhpRuntimeConfiguration.getInstance(project)
+        val stubsPath = phpConfig.defaultStubsPath
+
+        return tool.getCommandLineOptions(
+            projectPath,
+            filePath,
+            config.myUseKphp,
+            stubsPath,
+            config.myCoresCount,
+            config.myExcludeRegexp
+        )
     }
 
     override fun getTemporaryFilesFolder(): String {

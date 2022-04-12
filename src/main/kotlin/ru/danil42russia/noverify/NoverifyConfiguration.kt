@@ -12,7 +12,15 @@ open class NoverifyConfiguration : QualityToolConfiguration {
     private var myMaxMessagesPerFile = 100
 
     var myUseKphp = false
-        @Attribute("useKphp")
+        @Attribute("use_kphp")
+        get
+
+    var myCoresCount = Runtime.getRuntime().availableProcessors()
+        @Attribute("cores_count")
+        get
+
+    var myExcludeRegexp = ""
+        @Attribute("exclude_regexp")
         get
 
     override fun compareTo(other: QualityToolConfiguration?): Int {
@@ -89,6 +97,8 @@ open class NoverifyConfiguration : QualityToolConfiguration {
             it.myMaxMessagesPerFile = myMaxMessagesPerFile
             it.myTimeoutMs = myTimeoutMs
             it.myUseKphp = myUseKphp
+            it.myCoresCount = myCoresCount
+            it.myExcludeRegexp = myExcludeRegexp
         }
     }
 }

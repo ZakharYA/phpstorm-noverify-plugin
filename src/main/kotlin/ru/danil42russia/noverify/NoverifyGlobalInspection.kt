@@ -22,21 +22,32 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
     }
 
     // TODO: Переделать
-    // Путь до stubs
     // Путь до кэша
-    // Регулярка для игнора путей
-    // KPHP флаг (Готово)
-    fun getCommandLineOptions(projectPath: String, filePath: String, useKphp: Boolean): List<String> {
+    fun getCommandLineOptions(
+        projectPath: String,
+        filePath: String,
+        useKphp: Boolean,
+        stubsPath: String,
+        coresCount: Int,
+        excludeRegexp: String,
+    ): List<String> {
         val options: MutableList<String> = ArrayList()
         options.add("check")
 
         options.add("--output-json")
-        options.add("--stubs-dir=D:\\Libs\\phpstorm-stubs") // TODO: Вынести
         options.add("--full-analysis-files=$filePath")
-        options.add("--exclude=\"vendor|tests\"") // TODO: Вынести
+        options.add("--cores=$coresCount")
+
+        if (excludeRegexp.isNotBlank()) {
+            options.add("--exclude=\"$excludeRegexp\"")
+        }
 
         if (useKphp) {
             options.add("--kphp")
+        }
+
+        if (stubsPath.isNotBlank()) {
+            options.add("--stubs-dir=$stubsPath")
         }
 
         options.add(projectPath)
