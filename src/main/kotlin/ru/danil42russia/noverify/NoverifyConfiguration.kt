@@ -23,6 +23,10 @@ open class NoverifyConfiguration : QualityToolConfiguration {
         @Attribute("exclude_regexp")
         get
 
+    var myCachePath = ""
+        @Attribute("cache_path")
+        get
+
     override fun compareTo(other: QualityToolConfiguration?): Int {
         if (other !is NoverifyConfiguration) {
             return 1
@@ -99,6 +103,7 @@ open class NoverifyConfiguration : QualityToolConfiguration {
             it.myUseKphp = myUseKphp
             it.myCoresCount = myCoresCount
             it.myExcludeRegexp = myExcludeRegexp
+            it.myCachePath = myCachePath
         }
     }
 }

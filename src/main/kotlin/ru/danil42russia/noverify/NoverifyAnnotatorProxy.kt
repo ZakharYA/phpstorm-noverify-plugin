@@ -27,7 +27,8 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
             config.myUseKphp,
             stubsPath,
             config.myCoresCount,
-            config.myExcludeRegexp
+            config.myExcludeRegexp,
+            config.myCachePath,
         )
     }
 

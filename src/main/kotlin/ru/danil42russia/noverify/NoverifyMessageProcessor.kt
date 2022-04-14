@@ -1,5 +1,6 @@
 package ru.danil42russia.noverify
 
+import com.intellij.codeHighlighting.HighlightDisplayLevel
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
@@ -40,6 +41,11 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
             val message = QualityToolMessage(this, textRange, problem.severity, problem.message)
             addMessage(message)
         }
+    }
+
+    // 300iq мув конечно :)
+    override fun severityToDisplayLevel(severity: QualityToolMessage.Severity): HighlightDisplayLevel? {
+        return HighlightDisplayLevel.find(severity.name)
     }
 
     override fun getMessageStart(line: String): Int {

@@ -21,8 +21,6 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         return NoverifyValidationInspection()
     }
 
-    // TODO: Переделать
-    // Путь до кэша
     fun getCommandLineOptions(
         projectPath: String,
         filePath: String,
@@ -30,6 +28,7 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         stubsPath: String,
         coresCount: Int,
         excludeRegexp: String,
+        cachePath: String,
     ): List<String> {
         val options: MutableList<String> = ArrayList()
         options.add("check")
@@ -48,6 +47,10 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
 
         if (stubsPath.isNotBlank()) {
             options.add("--stubs-dir=$stubsPath")
+        }
+
+        if (cachePath.isNotBlank()) {
+            options.add("--cache-dir=$cachePath")
         }
 
         options.add(projectPath)
