@@ -29,6 +29,7 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         coresCount: Int,
         excludeRegexp: String,
         cachePath: String,
+        customParameters: String,
     ): List<String> {
         val options: MutableList<String> = ArrayList()
         options.add("check")
@@ -51,6 +52,10 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
 
         if (cachePath.isNotBlank()) {
             options.add("--cache-dir=$cachePath")
+        }
+
+        if (customParameters.isNotBlank()) {
+            options.add(customParameters)
         }
 
         options.add(projectPath)

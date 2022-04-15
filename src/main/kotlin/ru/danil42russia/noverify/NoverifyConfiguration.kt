@@ -27,6 +27,10 @@ open class NoverifyConfiguration : QualityToolConfiguration {
         @Attribute("cache_path")
         get
 
+    var myCustomParameters = ""
+        @Attribute("custom_parameters")
+        get
+
     override fun compareTo(other: QualityToolConfiguration?): Int {
         if (other !is NoverifyConfiguration) {
             return 1
@@ -104,6 +108,7 @@ open class NoverifyConfiguration : QualityToolConfiguration {
             it.myCoresCount = myCoresCount
             it.myExcludeRegexp = myExcludeRegexp
             it.myCachePath = myCachePath
+            it.myCustomParameters = myCustomParameters
         }
     }
 }

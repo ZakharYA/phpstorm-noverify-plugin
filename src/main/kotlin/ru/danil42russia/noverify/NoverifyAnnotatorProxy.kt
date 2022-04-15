@@ -1,6 +1,7 @@
 package ru.danil42russia.noverify
 
 import com.intellij.codeInspection.InspectionProfile
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.jetbrains.php.config.PhpRuntimeConfiguration
@@ -29,6 +30,7 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
             config.myCoresCount,
             config.myExcludeRegexp,
             config.myCachePath,
+            config.myCustomParameters,
         )
     }
 
@@ -44,6 +46,10 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
         configuration: QualityToolConfiguration,
         isOnTheFly: Boolean
     ): QualityToolAnnotatorInfo<NoverifyValidationInspection> {
+        if (!isOnTheFly){
+            LOG.warn("isOnTheFly is False")
+        }
+
         return NoverifyQualityToolAnnotatorInfo(file, tool, inspectionProfile, project, configuration, isOnTheFly)
     }
 
@@ -64,5 +70,7 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
 
         // Точно надо?
         const val TEMP_FOLDER = "noverify_temp_folder"
+
+        private val LOG: Logger = Logger.getInstance(NoverifyAnnotatorProxy::class.java)
     }
 }

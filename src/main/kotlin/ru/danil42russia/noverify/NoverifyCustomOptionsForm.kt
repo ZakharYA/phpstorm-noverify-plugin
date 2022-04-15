@@ -17,6 +17,7 @@ class NoverifyCustomOptionsForm(project: Project, private val configuration: Nov
     private lateinit var myUseCores: JBIntSpinner
     private lateinit var myExcludeRegexp: JBTextField
     private lateinit var myCachePath: PhpTextFieldWithSdkBasedBrowse
+    private lateinit var myCustomParameters: JBTextField
 
     init {
         myUseKphpCheckBox.addActionListener { configuration.myUseKphp = myUseKphpCheckBox.isSelected }
@@ -25,6 +26,8 @@ class NoverifyCustomOptionsForm(project: Project, private val configuration: Nov
 
         myCachePath.init(project, null, "Cache Path", false, true)
         myCachePath.textField.document.addUndoableEditListener { configuration.myCachePath = myCachePath.text }
+
+        myCustomParameters.addActionListener { configuration.myCustomParameters = myCustomParameters.text }
     }
 
     override fun createComponent(): JComponent {
@@ -40,6 +43,7 @@ class NoverifyCustomOptionsForm(project: Project, private val configuration: Nov
         configuration.myCoresCount = myUseCores.number
         configuration.myExcludeRegexp = myExcludeRegexp.text
         configuration.myCachePath = myCachePath.text
+        configuration.myCustomParameters = myCustomParameters.text
     }
 
     override fun reset() {
@@ -47,6 +51,7 @@ class NoverifyCustomOptionsForm(project: Project, private val configuration: Nov
         myUseCores.number = configuration.myCoresCount
         myExcludeRegexp.text = configuration.myExcludeRegexp
         myCachePath.text = configuration.myCachePath
+        myCustomParameters.text = configuration.myCustomParameters
     }
 
     override fun getDisplayName(): String? {

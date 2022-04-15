@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NonNls
 import org.xml.sax.Attributes
 import org.xml.sax.InputSource
 
+// TODO: Переделать на QualityToolMessageProcessor
 class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : QualityToolXmlMessageProcessor(info) {
     override fun getQualityToolType(): QualityToolType<NoverifyConfiguration> {
         return NoverifyQualityToolType.INSTANCE
