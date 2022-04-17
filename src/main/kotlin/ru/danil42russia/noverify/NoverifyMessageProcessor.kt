@@ -1,20 +1,16 @@
 package ru.danil42russia.noverify
 
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.intellij.codeHighlighting.HighlightDisplayLevel
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
-import com.intellij.util.PathUtil
-import com.jetbrains.php.tools.quality.QualityToolAnnotatorInfo
-import com.jetbrains.php.tools.quality.QualityToolMessage
-import com.jetbrains.php.tools.quality.QualityToolType
-import com.jetbrains.php.tools.quality.QualityToolXmlMessageProcessor
+import com.jetbrains.php.tools.quality.*
 import org.jetbrains.annotations.NonNls
-import org.xml.sax.Attributes
-import org.xml.sax.InputSource
 
-// TODO: Переделать на QualityToolMessageProcessor
-class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : QualityToolXmlMessageProcessor(info) {
+class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : QualityToolMessageProcessor(info) {
     override fun getQualityToolType(): QualityToolType<NoverifyConfiguration> {
         return NoverifyQualityToolType.INSTANCE
     }
@@ -23,14 +19,14 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
         return "noverify"
     }
 
-    override fun getXmlMessageHandler(): XMLMessageHandler {
-        return NoverifyXmlMessageHandler()
-    }
+    override fun parseLine(line: String) {
+        val outputLine = line.trim()
+        if (!outputLine.startsWith(MESSAGE_START) || !outputLine.endsWith(MESSAGE_END)) {
+            return
+        }
 
-    // TODO: Переделать
-    override fun processMessage(source: InputSource?) {
-        val messageHandler = xmlMessageHandler as NoverifyXmlMessageHandler
-        mySAXParser.parse(source, messageHandler)
+        val messageHandler = NoverifyJsonMessageHandler()
+        messageHandler.parseJson(outputLine)
 
         val psiFile = info.psiFile ?: return
         val document = PsiDocumentManager.getInstance(psiFile.project).getDocument(psiFile) ?: return
@@ -44,78 +40,62 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
         }
     }
 
-    // 300iq мув конечно :)
+    // 300iq мув конечно, но выглядит прикольно :)
     override fun severityToDisplayLevel(severity: QualityToolMessage.Severity): HighlightDisplayLevel? {
         return HighlightDisplayLevel.find(severity.name)
     }
 
-    override fun getMessageStart(line: String): Int {
-        return line.indexOf(MESSAGE_START)
+    override fun addMessage(message: QualityToolMessage) {
+        super.addMessage(message)
     }
 
-    override fun getMessageEnd(line: String): Int {
-        return line.indexOf(MESSAGE_END)
+    override fun done() {
     }
 
-    private class NoverifyXmlMessageHandler : XMLMessageHandler() {
+    private class NoverifyJsonMessageHandler {
         val problemList: MutableList<NoverifyProblemDescription> = mutableListOf()
 
-        override fun parseTag(tagName: String, attributes: Attributes) {
-            if (tagName != "report") {
-                return
+        fun parseJson(line: String) {
+            val parser = JsonParser.parseString(line)
+
+            val reports = parser.asJsonObject.get("Reports").asJsonArray
+            reports.forEach { report: JsonElement ->
+                val jReport = report.asJsonObject
+
+                val problem = parseReport(jReport)
+                problemList.add(problem)
             }
-
-            myLineNumber = parseLineNumber(attributes.getValue("line"))
-            val message = attributes.getValue("message")
-            val filePath = PathUtil.toSystemIndependentName(attributes.getValue("filename"))
-            val startChar = parseCharNumber(attributes.getValue("start_char"))
-            val endChar = parseCharNumber(attributes.getValue("end_char"))
-            val severity = levelToSeverity(attributes.getValue("level"))
-
-            val problem = NoverifyProblemDescription(
-                severity,
-                myLineNumber,
-                startChar,
-                endChar,
-                message,
-                filePath,
-            )
-
-            problemList.add(problem)
         }
 
-        fun parseCharNumber(charNumStr: String?): Int {
-            if (charNumStr != null) {
-                try {
-                    return charNumStr.toInt()
-                } catch (_: NumberFormatException) {
-                    LOG.error("Invalid char number: $charNumStr")
-                }
-            } else {
-                LOG.error("Missing char number")
-            }
-
-            return -1
+        fun parseReport(jReport: JsonObject): NoverifyProblemDescription {
+            return NoverifyProblemDescription(
+                levelToSeverity(jReport.get("level").asInt),
+                jReport.get("line").asInt,
+                jReport.get("start_char").asInt,
+                jReport.get("end_char").asInt,
+                jReport.get("message").asString,
+                jReport.get("filename").asString,
+            )
         }
 
         /**
          * @see https://github.com/VKCOM/noverify/blob/master/src/linter/report.go#L1153
          * @see https://github.com/VKCOM/noverify/blob/master/src/linter/lintapi/lintapi.go
          */
-        fun levelToSeverity(level: String?): QualityToolMessage.Severity? {
+        fun levelToSeverity(level: Int?): QualityToolMessage.Severity? {
             return when (level) {
-                "1" -> QualityToolMessage.Severity.ERROR
-                "2" -> QualityToolMessage.Severity.WARNING
-                "3" -> null // TODO: Подумать
-                "4" -> QualityToolMessage.Severity.WARNING
+                1 -> QualityToolMessage.Severity.ERROR
+                2 -> QualityToolMessage.Severity.WARNING
+                3 -> null // TODO: Подумать
+                4 -> QualityToolMessage.Severity.WARNING
                 else -> null
             }
         }
     }
 
     companion object {
-        private const val MESSAGE_START: @NonNls String = "<report"
-        private const val MESSAGE_END: @NonNls String = "</report>"
+        private const val MESSAGE_START: @NonNls String = "{"
+        private const val MESSAGE_END: @NonNls String = "}"
 
         private val LOG: Logger = Logger.getInstance(NoverifyMessageProcessor::class.java)
     }
