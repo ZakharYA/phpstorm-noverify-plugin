@@ -16,8 +16,7 @@ class NoverifyConfigurableForm(project: Project, configuration: NoverifyConfigur
     }
 
     override fun getCustomConfigurable(
-        project: Project,
-        configuration: NoverifyConfiguration
+        project: Project, configuration: NoverifyConfiguration
     ): QualityToolCustomSettings {
         return NoverifyCustomOptionsForm(project, configuration)
     }
@@ -32,11 +31,30 @@ class NoverifyConfigurableForm(project: Project, configuration: NoverifyConfigur
         // На самом деле проверка фигня
         // всё из-за того, что в функции validateConfiguration захардкожены параметры получения версии линтера
         // 300iq :^)
-        val informationTest = "NoVerify - Pretty fast linter (static analysis tool) for PHP"
-        return if (message.startsWith(informationTest)) {
-            Pair.create(true, "OK, $informationTest")
-        } else {
-            Pair.create(false, message)
+
+        // Конфликтует с validate из NoverifyCustomOptionsForm
+        // но пофиг, главное хоть какая-та валидация
+
+        return doValidation(message)
+    }
+
+    companion object {
+        fun doValidation(message: String): Pair<Boolean, String> {
+            val noverifyName = "NoVerify"
+            if (!message.startsWith(noverifyName)) {
+                return Pair.create(false, message)
+            }
+
+            val informationTest = "NoVerify - Pretty fast linter (static analysis tool) for PHP"
+            val regex = Regex("^NoVerify, version (?<version>\\d.\\d.\\d)?")
+            val matchResult = regex.find(message) ?: return Pair.create(true, "OK, $informationTest")
+
+            val version = matchResult.groups["version"]
+            if (version == null) {
+                Pair.create(true, "OK, $informationTest")
+            }
+
+            return Pair.create(true, "OK, $message")
         }
     }
 }

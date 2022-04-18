@@ -99,8 +99,8 @@ open class NoverifyConfiguration : QualityToolConfiguration {
         return settings
     }
 
-    fun clone(settings: NoverifyConfiguration) {
-        return settings.let {
+    fun clone(settings: NoverifyConfiguration): NoverifyConfiguration {
+        return settings.also {
             it.myNoverifyPath = myNoverifyPath
             it.myMaxMessagesPerFile = myMaxMessagesPerFile
             it.myTimeoutMs = myTimeoutMs

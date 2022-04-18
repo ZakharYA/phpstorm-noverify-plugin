@@ -36,8 +36,10 @@ class NoverifyRemoteConfigurationProvider : NoverifyConfigurationProvider() {
     override fun createNewInstance(
         project: Project?,
         existingSettings: List<NoverifyConfiguration>
-    ): NoverifyConfiguration {
-        TODO("Not yet implemented")
+    ): NoverifyConfiguration? {
+        // TODO: Добавить, но позже
+
+        return null
     }
 
     override fun createConfigurationByInterpreter(interpreter: PhpInterpreter): NoverifyConfiguration {

@@ -1,5 +1,6 @@
 package ru.danil42russia.noverify
 
+import com.intellij.execution.ExecutionException
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Pair
 import com.intellij.ui.JBIntSpinner
@@ -7,10 +8,11 @@ import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBTextField
 import com.jetbrains.php.config.interpreters.PhpTextFieldWithSdkBasedBrowse
 import com.jetbrains.php.tools.quality.QualityToolCustomSettings
+import com.jetbrains.php.tools.quality.QualityToolProcessCreator
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class NoverifyCustomOptionsForm(project: Project, private val configuration: NoverifyConfiguration) :
+class NoverifyCustomOptionsForm(private val project: Project, private val configuration: NoverifyConfiguration) :
     QualityToolCustomSettings() {
     private lateinit var myTopPanel: JPanel
     private lateinit var myUseKphpCheckBox: JBCheckBox
@@ -35,7 +37,13 @@ class NoverifyCustomOptionsForm(project: Project, private val configuration: Nov
     }
 
     override fun isModified(): Boolean {
-        TODO("Not yet implemented")
+        val oldSetting = configuration.clone() as NoverifyConfiguration
+
+        return myUseKphpCheckBox.isSelected != oldSetting.myUseKphp ||
+                myUseCores.number != oldSetting.myCoresCount ||
+                myExcludeRegexp.text != oldSetting.myExcludeRegexp ||
+                myCachePath.text != oldSetting.myCachePath ||
+                myCustomParameters.text != oldSetting.myCustomParameters
     }
 
     override fun apply() {
@@ -59,7 +67,21 @@ class NoverifyCustomOptionsForm(project: Project, private val configuration: Nov
     }
 
     override fun validate(): Pair<Boolean, String> {
-        TODO("Not yet implemented")
+        return try {
+            val output = QualityToolProcessCreator.getToolOutput(
+                project,
+                configuration.interpreterId,
+                configuration.toolPath,
+                configuration.timeout,
+                "Validating...",
+                myTopPanel,
+                "version"
+            )
+
+            NoverifyConfigurableForm.doValidation(output.stdout)
+        } catch (ex: ExecutionException) {
+            Pair.create(false, ex.message);
+        }
     }
 
     fun createUIComponents() {
