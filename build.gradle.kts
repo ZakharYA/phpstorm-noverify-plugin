@@ -15,7 +15,7 @@ plugins {
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
     // Diktat Plugin
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.3"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.1.0"
 }
 
 group = properties("pluginGroup")

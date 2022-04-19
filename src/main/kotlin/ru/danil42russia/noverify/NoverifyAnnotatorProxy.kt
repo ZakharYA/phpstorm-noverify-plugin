@@ -46,7 +46,7 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
         configuration: QualityToolConfiguration,
         isOnTheFly: Boolean
     ): QualityToolAnnotatorInfo<NoverifyValidationInspection> {
-        if (!isOnTheFly){
+        if (!isOnTheFly) {
             LOG.warn("isOnTheFly is False")
         }
 
@@ -68,9 +68,9 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
     companion object {
         val INSTANCE = NoverifyAnnotatorProxy()
 
+        private val LOG: Logger = Logger.getInstance(NoverifyAnnotatorProxy::class.java)
+
         // Точно надо?
         const val TEMP_FOLDER = "noverify_temp_folder"
-
-        private val LOG: Logger = Logger.getInstance(NoverifyAnnotatorProxy::class.java)
     }
 }

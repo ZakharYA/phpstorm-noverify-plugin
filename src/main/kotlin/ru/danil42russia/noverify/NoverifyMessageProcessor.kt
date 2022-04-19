@@ -4,7 +4,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.intellij.codeHighlighting.HighlightDisplayLevel
-import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
 import com.jetbrains.php.tools.quality.*
@@ -60,21 +59,21 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
 
             val reports = parser.asJsonObject.get("Reports").asJsonArray
             reports.forEach { report: JsonElement ->
-                val jReport = report.asJsonObject
+                val jsonReport = report.asJsonObject
 
-                val problem = parseReport(jReport)
+                val problem = parseReport(jsonReport)
                 problemList.add(problem)
             }
         }
 
-        fun parseReport(jReport: JsonObject): NoverifyProblemDescription {
+        fun parseReport(jsonReport: JsonObject): NoverifyProblemDescription {
             return NoverifyProblemDescription(
-                levelToSeverity(jReport.get("level").asInt),
-                jReport.get("line").asInt,
-                jReport.get("start_char").asInt,
-                jReport.get("end_char").asInt,
-                jReport.get("message").asString,
-                jReport.get("filename").asString,
+                levelToSeverity(jsonReport.get("level").asInt),
+                jsonReport.get("line").asInt,
+                jsonReport.get("start_char").asInt,
+                jsonReport.get("end_char").asInt,
+                jsonReport.get("message").asString,
+                jsonReport.get("filename").asString,
             )
         }
 
@@ -86,7 +85,7 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
             return when (level) {
                 1 -> QualityToolMessage.Severity.ERROR
                 2 -> QualityToolMessage.Severity.WARNING
-                3 -> null // TODO: Подумать
+                3 -> null  // TODO: Подумать
                 4 -> QualityToolMessage.Severity.WARNING
                 else -> null
             }
@@ -96,7 +95,5 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
     companion object {
         private const val MESSAGE_START: @NonNls String = "{"
         private const val MESSAGE_END: @NonNls String = "}"
-
-        private val LOG: Logger = Logger.getInstance(NoverifyMessageProcessor::class.java)
     }
 }

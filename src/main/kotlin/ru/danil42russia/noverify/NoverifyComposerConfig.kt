@@ -28,6 +28,6 @@ class NoverifyComposerConfig :
 
     companion object {
         private const val PACKAGE: @NonNls String = "vkcom/noverify"
-        private val RELATIVE_PATH: @NonNls String = "bin/noverify" + if (SystemInfo.isWindows) ".exe" else ""
+        private val RELATIVE_PATH: @NonNls String = "bin/noverify${if (SystemInfo.isWindows) ".exe" else ""}"
     }
 }

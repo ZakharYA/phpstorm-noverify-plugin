@@ -37,7 +37,7 @@
     allowedPrefixes: "" # A list of functions that return boolean and are allowed to use. Input is in a form "foo, bar".
 # Checks that function/method name is in lowerCamelCase
 - name: FUNCTION_NAME_INCORRECT_CASE
-  enabled: true
+  enabled: false
 # Checks that typealias name is in PascalCase
 - name: TYPEALIAS_NAME_INCORRECT_CASE
   enabled: true
@@ -85,7 +85,7 @@
   enabled: false
 # Checks that accessible method parameters are documented in KDoc
 - name: KDOC_WITHOUT_PARAM_TAG
-  enabled: true
+  enabled: false
 # Checks that accessible method explicit return type is documented in KDoc
 - name: KDOC_WITHOUT_RETURN_TAG
   enabled: false
@@ -156,7 +156,7 @@
   enabled: true
 # Orders imports alphabetically
 - name: FILE_UNORDERED_IMPORTS
-  enabled: true
+  enabled: false
   configuration:
     # use logical imports grouping with sorting inside of a group
     useRecommendedImportsOrder: true
@@ -185,7 +185,7 @@
   enabled: false
 # Checks that properties with comments are separated by a blank line
 - name: BLANK_LINE_BETWEEN_PROPERTIES
-  enabled: true
+  enabled: false
 # Checks top level order
 - name: TOP_LEVEL_ORDER
   enabled: true
@@ -197,7 +197,7 @@
     closeBraceNewline: 'True'
 # Checks that indentation is correct
 - name: WRONG_INDENTATION
-  enabled: true
+  enabled: false
   configuration:
     # Is newline at the end of a file needed
     newlineAtEnd: true
@@ -299,7 +299,7 @@
     maxBlockLength: '3'
 # Checks magic number
 - name: MAGIC_NUMBER
-  enabled: true
+  enabled: false
   configuration:
     # Ignore numbers from test
     ignoreTest: "true"
@@ -328,7 +328,7 @@
     # Whether enum members should be sorted alphabetically
     sortEnum: true
     # Whether class properties should be sorted alphabetically
-    sortProperty: true
+    sortProperty: false
 # Checks that multiple modifiers sequence is in the correct order
 - name: WRONG_MULTIPLE_MODIFIERS_ORDER
   enabled: true
@@ -361,7 +361,7 @@
   enabled: true
 # Type aliases provide alternative names for existing types when type's reference text is longer 25 chars
 - name: TYPE_ALIAS
-  enabled: true
+  enabled: false
   configuration:
     typeReferenceLength: '25' # max length of type reference
 # Checks if casting can be omitted
@@ -419,7 +419,7 @@
   enabled: true
 # Checks that property in constructor doesn't contain comment
 - name: KDOC_NO_CONSTRUCTOR_PROPERTY
-  enabled: true
+  enabled: false
 # Checks that the long lambda has parameters
 - name: TOO_MANY_LINES_IN_LAMBDA
   enabled: true
@@ -458,14 +458,14 @@
 # Developer expects to get the value of the property, but receives some unknown value and some extra side effect hidden by the custom getter/setter.
 # Use extra functions for it instead.
 - name: CUSTOM_GETTERS_SETTERS
-  enabled: true
+  enabled: false
 # Checks if null-check was used explicitly (for example: if (a == null))
 # Try to avoid explicit null checks (explicit comparison with `null`)
 # Kotlin is declared as [Null-safe](https://kotlinlang.org/docs/reference/null-safety.html) language.
 # But Kotlin architects wanted Kotlin to be fully compatible with Java, that's why `null` keyword was also introduced in Kotlin.
 # There are several code-structures that can be used in Kotlin to avoid null-checks. For example: `?:`,  `.let {}`, `.also {}`, e.t.c
 - name: AVOID_NULL_CHECKS
-  enabled: true
+  enabled: false
 # Checks if class instantiation can be wrapped in `apply` for better readability
 - name: COMPACT_OBJECT_INITIALIZATION
   enabled: true

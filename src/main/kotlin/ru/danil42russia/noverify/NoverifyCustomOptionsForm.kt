@@ -80,7 +80,7 @@ class NoverifyCustomOptionsForm(private val project: Project, private val config
 
             NoverifyConfigurableForm.doValidation(output.stdout)
         } catch (ex: ExecutionException) {
-            Pair.create(false, ex.message);
+            Pair.create(false, ex.message)
         }
     }
 

@@ -42,8 +42,10 @@ class NoverifyRemoteConfiguration : NoverifyConfiguration(), PhpSdkDependentConf
     }
 
     override fun clone(): QualityToolConfiguration {
-        val settings = NoverifyRemoteConfiguration()
-        settings.myInterpreterId = myInterpreterId
+        val settings = NoverifyRemoteConfiguration().also {
+            it.myInterpreterId = this.myInterpreterId
+        }
+
         super.clone(settings)
 
         return settings

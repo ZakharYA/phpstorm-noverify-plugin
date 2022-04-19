@@ -56,10 +56,7 @@ class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
     }
 
     override fun getGlobalTool(project: Project, profile: InspectionProfile?): QualityToolValidationGlobalInspection? {
-        var newProfile = profile
-        if (newProfile == null) {
-            newProfile = InspectionProjectProfileManager.getInstance(project).currentProfile
-        }
+        val newProfile = profile ?: InspectionProjectProfileManager.getInstance(project).currentProfile
 
         val inspectionTool = newProfile.getInspectionTool(inspectionId, project) ?: return null
 
