@@ -6,20 +6,20 @@ import com.jetbrains.php.composer.actions.log.ComposerLogMessageBuilder
 import com.jetbrains.php.tools.quality.QualityToolConfigurationManager
 import com.jetbrains.php.tools.quality.QualityToolsComposerConfig
 import org.jetbrains.annotations.NonNls
-import ru.danil42russia.noverify.NoverifyOpenSettingsProvider.Companion.NOVERIFY_OPEN_SETTINGS_PROVIDER
+import ru.danil42russia.noverify.NoVerifyOpenSettingsProvider.Companion.NOVERIFY_OPEN_SETTINGS_PROVIDER
 
-class NoverifyComposerConfig :
-    QualityToolsComposerConfig<NoverifyConfiguration, NoverifyValidationInspection>(PACKAGE, RELATIVE_PATH) {
+class NoVerifyComposerConfig :
+    QualityToolsComposerConfig<NoVerifyConfiguration, NoVerifyValidationInspection>(PACKAGE, RELATIVE_PATH) {
     override fun getQualityToolsInspectionSettings(): ComposerLogMessageBuilder.Settings? {
         return null
     }
 
     override fun getQualityInspectionShortName(): String {
-        return NoverifyQualityToolType.INSTANCE.inspectionId
+        return NoVerifyQualityToolType.INSTANCE.inspectionId
     }
 
-    override fun getConfigurationManager(project: Project): QualityToolConfigurationManager<NoverifyConfiguration> {
-        return NoverifyConfigurationManager.getInstance(project)
+    override fun getConfigurationManager(project: Project): QualityToolConfigurationManager<NoVerifyConfiguration> {
+        return NoVerifyConfigurationManager.getInstance(project)
     }
 
     override fun getSettings(): ComposerLogMessageBuilder.Settings {

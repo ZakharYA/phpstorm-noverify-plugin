@@ -9,9 +9,9 @@ import com.intellij.psi.PsiDocumentManager
 import com.jetbrains.php.tools.quality.*
 import org.jetbrains.annotations.NonNls
 
-class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : QualityToolMessageProcessor(info) {
-    override fun getQualityToolType(): QualityToolType<NoverifyConfiguration> {
-        return NoverifyQualityToolType.INSTANCE
+class NoVerifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : QualityToolMessageProcessor(info) {
+    override fun getQualityToolType(): QualityToolType<NoVerifyConfiguration> {
+        return NoVerifyQualityToolType.INSTANCE
     }
 
     override fun getMessagePrefix(): @NonNls String {
@@ -24,7 +24,7 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
             return
         }
 
-        val messageHandler = NoverifyJsonMessageHandler()
+        val messageHandler = NoVerifyJsonMessageHandler()
         messageHandler.parseJson(outputLine)
 
         val psiFile = info.psiFile ?: return
@@ -51,8 +51,8 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
     override fun done() {
     }
 
-    private class NoverifyJsonMessageHandler {
-        val problemList: MutableList<NoverifyProblemDescription> = mutableListOf()
+    private class NoVerifyJsonMessageHandler {
+        val problemList: MutableList<NoVerifyProblemDescription> = mutableListOf()
 
         fun parseJson(line: String) {
             val parser = JsonParser.parseString(line)
@@ -66,8 +66,8 @@ class NoverifyMessageProcessor(private val info: QualityToolAnnotatorInfo<*>) : 
             }
         }
 
-        fun parseReport(jsonReport: JsonObject): NoverifyProblemDescription {
-            return NoverifyProblemDescription(
+        fun parseReport(jsonReport: JsonObject): NoVerifyProblemDescription {
+            return NoVerifyProblemDescription(
                 levelToSeverity(jsonReport.get("level").asInt),
                 jsonReport.get("line").asInt,
                 jsonReport.get("start_char").asInt,

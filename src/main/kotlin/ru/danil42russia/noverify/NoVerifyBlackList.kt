@@ -6,11 +6,11 @@ import com.intellij.openapi.components.StoragePathMacros
 import com.intellij.openapi.project.Project
 import com.jetbrains.php.tools.quality.QualityToolBlackList
 
-@State(name = "NoverifyBlackList", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
-class NoverifyBlackList : QualityToolBlackList() {
+@State(name = "NoVerifyBlackList", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
+class NoVerifyBlackList : QualityToolBlackList() {
     companion object {
-        fun getInstance(project: Project): NoverifyBlackList {
-            return project.getService(NoverifyBlackList::class.java)
+        fun getInstance(project: Project): NoVerifyBlackList {
+            return project.getService(NoVerifyBlackList::class.java)
         }
     }
 }

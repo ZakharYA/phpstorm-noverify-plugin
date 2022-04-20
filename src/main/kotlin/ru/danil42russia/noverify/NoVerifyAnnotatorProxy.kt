@@ -7,17 +7,17 @@ import com.intellij.psi.PsiFile
 import com.jetbrains.php.config.PhpRuntimeConfiguration
 import com.jetbrains.php.tools.quality.*
 
-open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspection>() {
+open class NoVerifyAnnotatorProxy : QualityToolAnnotator<NoVerifyValidationInspection>() {
     override fun getOptions(
-        filePath: String?, inspection: NoverifyValidationInspection, profile: InspectionProfile?, project: Project
+        filePath: String?, inspection: NoVerifyValidationInspection, profile: InspectionProfile?, project: Project
     ): List<String> {
         if (filePath == null) {
             return emptyList()
         }
 
-        val tool = qualityToolType.getGlobalTool(project, profile) as? NoverifyGlobalInspection ?: return emptyList()
+        val tool = qualityToolType.getGlobalTool(project, profile) as? NoVerifyGlobalInspection ?: return emptyList()
         val projectPath = project.basePath ?: return emptyList()
-        val config = getConfiguration(project, inspection) as? NoverifyConfiguration ?: return emptyList()
+        val config = getConfiguration(project, inspection) as? NoVerifyConfiguration ?: return emptyList()
 
         val phpConfig = PhpRuntimeConfiguration.getInstance(project)
         val stubsPath = phpConfig.defaultStubsPath
@@ -40,25 +40,25 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
 
     override fun createAnnotatorInfo(
         file: PsiFile?,
-        tool: NoverifyValidationInspection,
+        tool: NoVerifyValidationInspection,
         inspectionProfile: InspectionProfile,
         project: Project,
         configuration: QualityToolConfiguration,
         isOnTheFly: Boolean
-    ): QualityToolAnnotatorInfo<NoverifyValidationInspection> {
+    ): QualityToolAnnotatorInfo<NoVerifyValidationInspection> {
         if (!isOnTheFly) {
             LOG.warn("isOnTheFly is False")
         }
 
-        return NoverifyQualityToolAnnotatorInfo(file, tool, inspectionProfile, project, configuration, isOnTheFly)
+        return NoVerifyQualityToolAnnotatorInfo(file, tool, inspectionProfile, project, configuration, isOnTheFly)
     }
 
-    override fun getQualityToolType(): QualityToolType<NoverifyConfiguration> {
-        return NoverifyQualityToolType.INSTANCE
+    override fun getQualityToolType(): QualityToolType<NoVerifyConfiguration> {
+        return NoVerifyQualityToolType.INSTANCE
     }
 
     override fun createMessageProcessor(collectedInfo: QualityToolAnnotatorInfo<*>): QualityToolMessageProcessor {
-        return NoverifyMessageProcessor(collectedInfo)
+        return NoVerifyMessageProcessor(collectedInfo)
     }
 
     override fun getPairedBatchInspectionShortName(): String {
@@ -66,9 +66,9 @@ open class NoverifyAnnotatorProxy : QualityToolAnnotator<NoverifyValidationInspe
     }
 
     companion object {
-        val INSTANCE = NoverifyAnnotatorProxy()
+        val INSTANCE = NoVerifyAnnotatorProxy()
 
-        private val LOG: Logger = Logger.getInstance(NoverifyAnnotatorProxy::class.java)
+        private val LOG: Logger = Logger.getInstance(NoVerifyAnnotatorProxy::class.java)
 
         // Точно надо?
         const val TEMP_FOLDER = "noverify_temp_folder"

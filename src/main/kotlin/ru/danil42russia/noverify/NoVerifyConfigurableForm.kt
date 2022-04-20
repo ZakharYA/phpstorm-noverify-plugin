@@ -1,24 +1,20 @@
 package ru.danil42russia.noverify
 
-import ru.danil42russia.noverify.NoverifyConfigurationBaseManager.Companion.NOVERIFY
-
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Pair
-import com.jetbrains.php.tools.quality.QualityToolConfigurableForm
-import com.jetbrains.php.tools.quality.QualityToolConfiguration
-import com.jetbrains.php.tools.quality.QualityToolCustomSettings
-import com.jetbrains.php.tools.quality.QualityToolType
+import com.jetbrains.php.tools.quality.*
+import ru.danil42russia.noverify.NoVerifyConfigurationBaseManager.Companion.NOVERIFY
 
-class NoverifyConfigurableForm(project: Project, configuration: NoverifyConfiguration) :
-    QualityToolConfigurableForm<NoverifyConfiguration>(project, configuration, NOVERIFY, "noverify") {
+class NoVerifyConfigurableForm(project: Project, configuration: NoVerifyConfiguration) :
+    QualityToolConfigurableForm<NoVerifyConfiguration>(project, configuration, NOVERIFY, "noverify") {
     override fun getQualityToolType(): QualityToolType<QualityToolConfiguration> {
-        return NoverifyQualityToolType.INSTANCE as QualityToolType<QualityToolConfiguration>
+        return NoVerifyQualityToolType.INSTANCE as QualityToolType<QualityToolConfiguration>
     }
 
     override fun getCustomConfigurable(
-        project: Project, configuration: NoverifyConfiguration
+        project: Project, configuration: NoVerifyConfiguration
     ): QualityToolCustomSettings {
-        return NoverifyCustomOptionsForm(project, configuration)
+        return NoVerifyCustomOptionsForm(project, configuration)
     }
 
     override fun getHelpTopic(): String {
@@ -28,17 +24,16 @@ class NoverifyConfigurableForm(project: Project, configuration: NoverifyConfigur
     override fun validateMessage(message: String): Pair<Boolean, String> {
         // FIXME: Поправить когда сделают переопределение аргументов
 
-        // На самом деле проверка фигня
-        // всё из-за того, что в функции validateConfiguration захардкожены параметры получения версии линтера
-        // 300iq :^)
-
-        // Конфликтует с validate из NoverifyCustomOptionsForm
+        // Конфликтует с validate из NoVerifyCustomOptionsForm
         // но пофиг, главное хоть какая-та валидация
 
         return doValidation(message)
     }
 
     companion object {
+        // На самом деле проверка фигня
+        // всё из-за того, что в функции validateConfiguration захардкожены параметры получения версии линтера
+        // 300iq :^)
         fun doValidation(message: String): Pair<Boolean, String> {
             val noverifyName = "NoVerify"
             if (!message.startsWith(noverifyName)) {

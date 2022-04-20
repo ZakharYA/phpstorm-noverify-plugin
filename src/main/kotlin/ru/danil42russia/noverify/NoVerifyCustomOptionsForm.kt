@@ -1,6 +1,5 @@
 package ru.danil42russia.noverify
 
-import com.intellij.execution.ExecutionException
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Pair
 import com.intellij.ui.JBIntSpinner
@@ -8,11 +7,10 @@ import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBTextField
 import com.jetbrains.php.config.interpreters.PhpTextFieldWithSdkBasedBrowse
 import com.jetbrains.php.tools.quality.QualityToolCustomSettings
-import com.jetbrains.php.tools.quality.QualityToolProcessCreator
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class NoverifyCustomOptionsForm(private val project: Project, private val configuration: NoverifyConfiguration) :
+class NoVerifyCustomOptionsForm(project: Project, private val configuration: NoVerifyConfiguration) :
     QualityToolCustomSettings() {
     private lateinit var myTopPanel: JPanel
     private lateinit var myUseKphpCheckBox: JBCheckBox
@@ -37,7 +35,7 @@ class NoverifyCustomOptionsForm(private val project: Project, private val config
     }
 
     override fun isModified(): Boolean {
-        val oldSetting = configuration.clone() as NoverifyConfiguration
+        val oldSetting = configuration.clone() as NoVerifyConfiguration
 
         return myUseKphpCheckBox.isSelected != oldSetting.myUseKphp ||
                 myUseCores.number != oldSetting.myCoresCount ||
@@ -67,21 +65,7 @@ class NoverifyCustomOptionsForm(private val project: Project, private val config
     }
 
     override fun validate(): Pair<Boolean, String> {
-        return try {
-            val output = QualityToolProcessCreator.getToolOutput(
-                project,
-                configuration.interpreterId,
-                configuration.toolPath,
-                configuration.timeout,
-                "Validating...",
-                myTopPanel,
-                "version"
-            )
-
-            NoverifyConfigurableForm.doValidation(output.stdout)
-        } catch (ex: ExecutionException) {
-            Pair.create(false, ex.message)
-        }
+        return Pair.create(false, "")
     }
 
     fun createUIComponents() {

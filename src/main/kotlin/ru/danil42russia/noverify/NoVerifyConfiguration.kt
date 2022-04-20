@@ -6,8 +6,8 @@ import com.intellij.util.xmlb.annotations.Attribute
 import com.intellij.util.xmlb.annotations.Transient
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
 
-open class NoverifyConfiguration : QualityToolConfiguration {
-    private var myNoverifyPath = ""
+open class NoVerifyConfiguration : QualityToolConfiguration {
+    private var myNoVerifyPath = ""
     private var myTimeoutMs = 30000
     private var myMaxMessagesPerFile = 100
 
@@ -32,7 +32,7 @@ open class NoverifyConfiguration : QualityToolConfiguration {
         get
 
     override fun compareTo(other: QualityToolConfiguration?): Int {
-        if (other !is NoverifyConfiguration) {
+        if (other !is NoVerifyConfiguration) {
             return 1
         }
         if (this.getPresentableName(null) == "Local") {
@@ -68,24 +68,24 @@ open class NoverifyConfiguration : QualityToolConfiguration {
 
     @Transient
     override fun getToolPath(): String {
-        return myNoverifyPath
+        return myNoVerifyPath
     }
 
     override fun setToolPath(toolPath: String) {
-        myNoverifyPath = toolPath
+        myNoVerifyPath = toolPath
     }
 
     // Сначала можно не понять, откуда берётся суффикс, а он появляется при serialize/deserialize пути
     // Только для Windows
     @Attribute("tool_path")
     fun getSerializedToolPath(): String {
-        return serialize(myNoverifyPath).removeSuffix(".bat")
+        return serialize(myNoVerifyPath).removeSuffix(".bat")
     }
 
     fun setSerializedToolPath(configurationFilePath: String?) {
         val deserializePath = deserialize(configurationFilePath).removeSuffix(".bat")
 
-        myNoverifyPath = deserializePath
+        myNoVerifyPath = deserializePath
     }
 
     @Attribute("max_messages_per_file")
@@ -94,14 +94,14 @@ open class NoverifyConfiguration : QualityToolConfiguration {
     }
 
     override fun clone(): QualityToolConfiguration {
-        val settings = NoverifyConfiguration()
+        val settings = NoVerifyConfiguration()
         clone(settings)
         return settings
     }
 
-    fun clone(settings: NoverifyConfiguration): NoverifyConfiguration {
+    fun clone(settings: NoVerifyConfiguration): NoVerifyConfiguration {
         return settings.also {
-            it.myNoverifyPath = myNoverifyPath
+            it.myNoVerifyPath = myNoVerifyPath
             it.myMaxMessagesPerFile = myMaxMessagesPerFile
             it.myTimeoutMs = myTimeoutMs
             it.myUseKphp = myUseKphp

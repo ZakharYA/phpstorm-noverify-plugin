@@ -8,9 +8,9 @@ import com.jetbrains.php.tools.quality.QualityToolAnnotator
 import com.jetbrains.php.tools.quality.QualityToolValidationGlobalInspection
 import com.jetbrains.php.tools.quality.QualityToolXmlMessageProcessor.ProblemDescription
 
-class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), ExternalAnnotatorBatchInspection {
-    override fun getAnnotator(): QualityToolAnnotator<NoverifyValidationInspection> {
-        return NoverifyAnnotatorProxy.INSTANCE
+class NoVerifyGlobalInspection : QualityToolValidationGlobalInspection(), ExternalAnnotatorBatchInspection {
+    override fun getAnnotator(): QualityToolAnnotator<NoVerifyValidationInspection> {
+        return NoVerifyAnnotatorProxy.INSTANCE
     }
 
     override fun getKey(): Key<List<ProblemDescription>> {
@@ -18,7 +18,7 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
     }
 
     override fun getSharedLocalInspectionTool(): LocalInspectionTool {
-        return NoverifyValidationInspection()
+        return NoVerifyValidationInspection()
     }
 
     fun getCommandLineOptions(
@@ -34,6 +34,7 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         val options: MutableList<String> = ArrayList()
         options.add("check")
 
+        options.add("--output=stdout")
         options.add("--output-json")
         options.add("--full-analysis-files=$filePath")
         options.add("--cores=$coresCount")
@@ -67,6 +68,6 @@ class NoverifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
     companion object {
         private val NOVERIFY_ANNOTATOR_INFO: Key<List<ProblemDescription>> = Key.create("ANNOTATOR_INFO_NOVERIFY")
 
-        private val LOG: Logger = Logger.getInstance(NoverifyConfigurationProvider::class.java)
+        private val LOG: Logger = Logger.getInstance(NoVerifyConfigurationProvider::class.java)
     }
 }

@@ -1,6 +1,7 @@
 # NoVerify plugin for PhpStorm
 
-[![Build](https://github.com/Danil42Russia/phpstorm-noverify-plugin/workflows/Build/badge.svg)][gh:build] [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![Build](https://github.com/Danil42Russia/phpstorm-noverify-plugin/workflows/Build/badge.svg)](https://github.com/Danil42Russia/phpstorm-noverify-plugin/workflows/Build/badge.svg)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 ## About
 

@@ -6,14 +6,14 @@ import com.intellij.psi.PsiFile
 import com.jetbrains.php.tools.quality.QualityToolAnnotatorInfo
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
 
-class NoverifyQualityToolAnnotatorInfo(
+class NoVerifyQualityToolAnnotatorInfo(
     psiFile: PsiFile?,
-    inspection: NoverifyValidationInspection,
+    inspection: NoVerifyValidationInspection,
     profile: InspectionProfile,
     project: Project,
     configuration: QualityToolConfiguration,
     isOnTheFly: Boolean
-) : QualityToolAnnotatorInfo<NoverifyValidationInspection>(
+) : QualityToolAnnotatorInfo<NoVerifyValidationInspection>(
     psiFile,
     inspection,
     profile,

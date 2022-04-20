@@ -12,7 +12,7 @@ import com.jetbrains.php.tools.quality.QualityToolConfiguration
 import org.jetbrains.annotations.Nls
 
 @Tag("noverify_by_interpreter")
-class NoverifyRemoteConfiguration : NoverifyConfiguration(), PhpSdkDependentConfiguration {
+class NoVerifyRemoteConfiguration : NoVerifyConfiguration(), PhpSdkDependentConfiguration {
     private var myInterpreterId: String? = null
 
     @Attribute("interpreter_id")
@@ -42,7 +42,7 @@ class NoverifyRemoteConfiguration : NoverifyConfiguration(), PhpSdkDependentConf
     }
 
     override fun clone(): QualityToolConfiguration {
-        val settings = NoverifyRemoteConfiguration().also {
+        val settings = NoVerifyRemoteConfiguration().also {
             it.myInterpreterId = this.myInterpreterId
         }
 

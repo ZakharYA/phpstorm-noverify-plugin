@@ -6,45 +6,45 @@ import com.intellij.openapi.project.Project
 import com.intellij.profile.codeInspection.InspectionProjectProfileManager
 import com.intellij.util.ObjectUtils.tryCast
 import com.jetbrains.php.tools.quality.*
-import ru.danil42russia.noverify.NoverifyConfigurationBaseManager.Companion.NOVERIFY
+import ru.danil42russia.noverify.NoVerifyConfigurationBaseManager.Companion.NOVERIFY
 
-class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
+class NoVerifyQualityToolType : QualityToolType<NoVerifyConfiguration>() {
     override fun getDisplayName(): String {
         return NOVERIFY
     }
 
     override fun getQualityToolBlackList(project: Project): QualityToolBlackList {
-        return NoverifyBlackList.getInstance(project)
+        return NoVerifyBlackList.getInstance(project)
     }
 
-    override fun getConfigurationManager(project: Project): QualityToolConfigurationManager<NoverifyConfiguration> {
-        return NoverifyConfigurationManager.getInstance(project)
+    override fun getConfigurationManager(project: Project): QualityToolConfigurationManager<NoVerifyConfiguration> {
+        return NoVerifyConfigurationManager.getInstance(project)
     }
 
     override fun getInspection(): QualityToolValidationInspection {
-        return NoverifyValidationInspection()
+        return NoVerifyValidationInspection()
     }
 
-    override fun getConfigurationProvider(): QualityToolConfigurationProvider<NoverifyConfiguration>? {
-        return NoverifyConfigurationProvider.getInstances()
+    override fun getConfigurationProvider(): QualityToolConfigurationProvider<NoVerifyConfiguration>? {
+        return NoVerifyConfigurationProvider.getInstances()
     }
 
     override fun createConfigurableForm(
-        project: Project, settings: NoverifyConfiguration
-    ): QualityToolConfigurableForm<NoverifyConfiguration> {
-        return NoverifyConfigurableForm(project, settings)
+        project: Project, settings: NoVerifyConfiguration
+    ): QualityToolConfigurableForm<NoVerifyConfiguration> {
+        return NoVerifyConfigurableForm(project, settings)
     }
 
     override fun getToolConfigurable(project: Project): Configurable {
-        return NoverifyConfigurable(project)
+        return NoVerifyConfigurable(project)
     }
 
-    override fun getProjectConfiguration(project: Project): QualityToolProjectConfiguration<NoverifyConfiguration> {
-        return NoverifyProjectConfiguration.getInstance(project)
+    override fun getProjectConfiguration(project: Project): QualityToolProjectConfiguration<NoVerifyConfiguration> {
+        return NoVerifyProjectConfiguration.getInstance(project)
     }
 
-    override fun createConfiguration(): NoverifyConfiguration {
-        return NoverifyConfiguration()
+    override fun createConfiguration(): NoVerifyConfiguration {
+        return NoVerifyConfiguration()
     }
 
     override fun getInspectionId(): String {
@@ -60,7 +60,7 @@ class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
 
         val inspectionTool = newProfile.getInspectionTool(inspectionId, project) ?: return null
 
-        return tryCast(inspectionTool.tool, NoverifyGlobalInspection::class.java)
+        return tryCast(inspectionTool.tool, NoVerifyGlobalInspection::class.java)
     }
 
     override fun getInspectionShortName(project: Project): String {
@@ -70,6 +70,6 @@ class NoverifyQualityToolType : QualityToolType<NoverifyConfiguration>() {
     }
 
     companion object {
-        val INSTANCE = NoverifyQualityToolType()
+        val INSTANCE = NoVerifyQualityToolType()
     }
 }

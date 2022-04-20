@@ -4,7 +4,7 @@ import com.intellij.openapi.util.NlsSafe
 import com.jetbrains.php.tools.quality.QualityToolMessage
 import com.jetbrains.php.tools.quality.QualityToolXmlMessageProcessor
 
-class NoverifyProblemDescription(
+class NoVerifyProblemDescription(
     severity: QualityToolMessage.Severity?,
     lineNumber: Int,
     val startChar: Int,

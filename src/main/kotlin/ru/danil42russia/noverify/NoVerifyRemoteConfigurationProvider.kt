@@ -8,24 +8,24 @@ import com.jetbrains.php.tools.quality.QualityToolConfigurableForm
 import org.jdom.Element
 import org.jetbrains.annotations.NonNls
 
-class NoverifyRemoteConfigurationProvider : NoverifyConfigurationProvider() {
+class NoVerifyRemoteConfigurationProvider : NoVerifyConfigurationProvider() {
     override fun canLoad(tagName: String): Boolean {
         return tagName == NOVERIFY_BY_INTERPRETER
     }
 
-    override fun load(element: Element): NoverifyConfiguration {
-        return XmlSerializer.deserialize(element, NoverifyRemoteConfiguration::class.java)
+    override fun load(element: Element): NoVerifyConfiguration {
+        return XmlSerializer.deserialize(element, NoVerifyRemoteConfiguration::class.java)
     }
 
     override fun createConfigurationForm(
         project: Project,
-        settings: NoverifyConfiguration
+        settings: NoVerifyConfiguration
     ): QualityToolConfigurableForm<*>? {
-        if (settings !is NoverifyRemoteConfiguration) {
+        if (settings !is NoVerifyRemoteConfiguration) {
             return null
         }
 
-        val delegate = NoverifyConfigurableForm(project, settings)
+        val delegate = NoVerifyConfigurableForm(project, settings)
         return QualityToolByInterpreterConfigurableForm(
             project,
             settings,
@@ -35,15 +35,15 @@ class NoverifyRemoteConfigurationProvider : NoverifyConfigurationProvider() {
 
     override fun createNewInstance(
         project: Project?,
-        existingSettings: List<NoverifyConfiguration>
-    ): NoverifyConfiguration? {
+        existingSettings: List<NoVerifyConfiguration>
+    ): NoVerifyConfiguration? {
         // TODO: Добавить, но позже
 
         return null
     }
 
-    override fun createConfigurationByInterpreter(interpreter: PhpInterpreter): NoverifyConfiguration {
-        val settings = NoverifyRemoteConfiguration()
+    override fun createConfigurationByInterpreter(interpreter: PhpInterpreter): NoVerifyConfiguration {
+        val settings = NoVerifyRemoteConfiguration()
         settings.setInterpreterId(interpreter.id)
         return settings
     }
