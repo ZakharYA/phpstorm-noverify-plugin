@@ -1,11 +1,12 @@
-# NoVerify plugin for PhpStorm
+# <img src="src/main/resources/META-INF/pluginIcon.svg"> NoVerify plugin for PhpStorm
 
 [![Build](https://github.com/Danil42Russia/phpstorm-noverify-plugin/workflows/Build/badge.svg)](https://github.com/Danil42Russia/phpstorm-noverify-plugin/workflows/Build/badge.svg)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 ## About
 
-This plugin adds viewing reports from [NoVerify](https://github.com/VKCOM/noverify) to [PhpStorm](https://www.jetbrains.com/phpstorm/)
+This plugin adds viewing reports from [NoVerify](https://github.com/VKCOM/noverify)
+to [PhpStorm](https://www.jetbrains.com/phpstorm/)
 
 ## Installation
 
