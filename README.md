@@ -2,6 +2,8 @@
 
 [![Build](https://github.com/Danil42Russia/phpstorm-noverify-plugin/workflows/Build/badge.svg)](https://github.com/Danil42Russia/phpstorm-noverify-plugin/workflows/Build/badge.svg)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![Total Downloads](https://img.shields.io/jetbrains/plugin/d/19008)](https://plugins.jetbrains.com/plugin/19008-noverify)
+[![Latest Version](https://img.shields.io/jetbrains/plugin/v/19008)](https://plugins.jetbrains.com/plugin/19008-noverify)
 
 ## About
 
@@ -20,6 +22,29 @@ to [PhpStorm](https://www.jetbrains.com/phpstorm/)
   Download the [latest release](https://github.com/Danil42Russia/phpstorm-noverify-plugin/releases/latest) and install
   it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+
+## Using
+
+- Using Composer package (Recommended)
+
+  Install NoVerify package
+  ```shell
+  composer require --dev vkcom/noverify
+  ```
+
+  Download the NoVerify binary
+  ```shell
+  ./vendor/bin/noverify-get
+  ```
+
+
+- Manually:
+
+  Download NoVerify binaries from GitHub [latest release](https://github.com/VKCOM/noverify/releases/latest) and save it
+  locally
+
+  Inside the IDE and set its path to <kbd>Settings/Preferences</kbd> > <kbd>PHP</kbd> > <kbd>Quality Tools</kbd> > <kbd>
+  NoVerify</kbd> > <kbd>Configuration</kbd> > <kbd>NoVerify Path</kbd>
 
 ## License
 

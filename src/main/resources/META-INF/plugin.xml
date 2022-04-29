@@ -2,8 +2,17 @@
 <idea-plugin>
     <id>ru.danil42russia.noverify</id>
     <name>NoVerify</name>
-    <vendor>Danil Ovchinnikov</vendor>
-    <description>This plugin adds viewing reports from NoVerify</description>
+    <version>1.0.0</version>
+    <vendor email="danil42worker@gmail.com" url="https://vk.com/danil42russia">Danil Ovchinnikov</vendor>
+    <description><![CDATA[
+<p>This plugin adds viewing reports from <a href="https://github.com/VKCOM/noverify">NoVerify</a></p>
+<br>
+<p>To configure, open <b>Settings/Preferences</b> | <b>PHP</b> > <b>Quality Tools</b> > <b>NoVerify</b> > <b>Configuration</b></p>
+<br>
+<p><b>Links</b></p>
+<p><a href="https://github.com/Danil42Russia/phpstorm-noverify-plugin">GitHub Plugin</a></p>
+<p><a href="https://github.com/VKCOM/noverify">GitHub NoVerify Linter</a></p>
+]]></description>
 
     <depends>com.intellij.modules.ultimate</depends>
     <depends>com.jetbrains.php</depends>
@@ -19,7 +28,7 @@
         <projectService serviceImplementation="ru.danil42russia.noverify.NoVerifyConfigurationManager"/>
         <projectService
                 serviceImplementation="ru.danil42russia.noverify.NoVerifyConfigurationManager$NoVerifyProjectConfigurationManager"/>
-        
+
         <globalInspection language="PHP" shortName="NoVerifyGlobal"
                           groupPath="PHP"
                           groupName="Quality tools"
