@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>ru.danil42russia.noverify</id>
     <name>NoVerify</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <vendor email="danil42worker@gmail.com" url="https://vk.com/danil42russia">Danil Ovchinnikov</vendor>
     <description><![CDATA[
 <p>This plugin adds viewing reports from <a href="https://github.com/VKCOM/noverify">NoVerify</a></p>
@@ -13,6 +13,9 @@
 <p><a href="https://github.com/Danil42Russia/phpstorm-noverify-plugin">GitHub Plugin</a></p>
 <p><a href="https://github.com/VKCOM/noverify">GitHub NoVerify Linter</a></p>
 ]]></description>
+    <change-notes><![CDATA[
+<p>Add support 2022.1</p>
+]]></change-notes>
 
     <depends>com.intellij.modules.ultimate</depends>
     <depends>com.jetbrains.php</depends>

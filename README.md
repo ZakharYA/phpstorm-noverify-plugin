@@ -19,9 +19,10 @@ to [PhpStorm](https://www.jetbrains.com/phpstorm/)
 
 - Manually:
 
-  Download the [latest release](https://github.com/Danil42Russia/phpstorm-noverify-plugin/releases/latest) and install
-  it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+  Download the latest release from [GitHub](https://github.com/Danil42Russia/phpstorm-noverify-plugin/releases/latest)
+  or [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/19008-noverify/versions). Install it manually
+  using <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin
+  from disk...</kbd>
 
 ## Using
 
