@@ -56,7 +56,7 @@ class NoVerifyGlobalInspection : QualityToolValidationGlobalInspection(), Extern
         }
 
         if (customParameters.isNotBlank()) {
-            options.add(customParameters)
+            options.addAll(customParameters.split(" "))
         }
 
         options.add(projectPath)
